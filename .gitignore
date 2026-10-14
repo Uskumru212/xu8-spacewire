@@ -1,0 +1,34 @@
+# Vivado generated state and build outputs
+.Xil/
+*.jou
+*.log
+*.str
+*.pb
+*.wdb
+*.vcd
+*.bit
+*.bin
+*.dcp
+*.ltx
+*.xsa
+*.cache/
+*.gen/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+build/
+work/
+
+# Machine-local credentials and configuration
+.env
+.env.*
+*.lic
+*.pem
+*.key
+
+# Editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
