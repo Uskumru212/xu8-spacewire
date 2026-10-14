@@ -29,9 +29,9 @@ The user confirms both enables are active high and the enable bank supply is 3.3
 
 Bank 66 is at 1.8 V, as confirmed by the user. The schematic shows **ADN4622BRNZ**, a bidirectional LVDS isolation arrangement with two channels each way. It is not an ADN4662 and does not turn the FPGA interface into single-ended signals.
 
-R3026/R3027 are DNP. Candidate XDC therefore requests `DIFF_TERM_ADV TERM_100` on the FPGA receive pairs with `IOSTANDARD LVDS`. The pin mapping is confirmed by the supplied schematic, but the standard is still only a candidate: verify AMD LVDS input/output support and VCCO requirements at the confirmed bank-66 rail, especially for the FPGA transmit drivers, before enabling these constraints. R3015/R3016 are drawn as 100-ohm isolator input termination; their populated state is not independently confirmed. Verify pair polarity, connectors, isolator supplies and assembly before powering the external interface.
+R3026/R3027 are DNP. Candidate XDC therefore requests `DIFF_TERM_ADV TERM_100` on the FPGA receive pairs with `IOSTANDARD LVDS`. The supplied schematic confirms the pin mapping, and the user-confirmed 1.8 V bank-66 supply matches AMD's nominal VCCO requirement for HP-bank LVDS outputs and internally terminated inputs. This resolves the bank-supply compatibility question; it does not establish the isolator-side differential swing, common-mode range, termination population or physical signal quality. R3015/R3016 are drawn as 100-ohm isolator input termination; their populated state is not independently confirmed. Verify pair polarity, connectors, isolator supplies and assembly before powering the external interface.
 
-[AMD DIFF_TERM_ADV](https://docs.amd.com/r/en-US/2026.1/ug912-vivado-properties/DIFF_TERM_ADV) and [UltraScale SelectIO guide](https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug571-ultrascale-selectio.pdf).
+[AMD DIFF_TERM_ADV](https://docs.amd.com/r/en-US/2026.1/ug912-vivado-properties/DIFF_TERM_ADV), [UltraScale SelectIO guide](https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug571-ultrascale-selectio.pdf) and [Zynq UltraScale+ LVDS DC specifications](https://docs.amd.com/r/en-US/ds925-zynq-ultrascale-plus/LVDS-DC-Specifications-LVDS).
 
 ## Clock and remaining constraints
 
