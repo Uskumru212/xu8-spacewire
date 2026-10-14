@@ -1,6 +1,6 @@
 # Candidate integration project. Requires a valid Vivado license.
-# IP property names checked against installed 2026.1 component metadata;
-# IP generation and device implementation have NOT been executed.
+# IP generation and structural synthesis were validated with Vivado 2025.2.
+# Device implementation and timing closure have NOT been executed.
 source [file join [file dirname [info script]] create_project.tcl]
 add_files [list [file join $root rtl spw_telemetry_axi.vhd]]
 # Vivado module references reject a VHDL-2008 top; this unit is VHDL-93 compatible.

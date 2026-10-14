@@ -17,7 +17,7 @@ User-supplied module: ME-XU8-7EV-2I-D12E, revision R3. Enclustra identifies the 
 | +3V3_P_EN | G15 | 48 / HD | High |
 | +5V_EN | K15 | 48 / HD | High |
 
-SpaceWire and enable pins were transcribed from the user's schematics. Clock pins come from Enclustra's reference. All listed pin identities, pairs and bank types were checked against AMD's official `xczu7evfbvb900pkg.txt`. This validates package identities, not board assembly or Vivado DRC. Connector pin numbers are not FPGA package pins.
+SpaceWire and enable pins were transcribed from the user's schematics. The supplied SOM FPGA schematic crop explicitly maps `Din_P/N` to AC8/AC7, `Sin_P/N` to AA2/AA1, `Dout_P/N` to AD1/AE1, and `Sout_P/N` to AD2/AE2 on bank 66. Clock pins come from Enclustra's reference. All listed pin identities, pairs and bank types were checked against AMD's official `xczu7evfbvb900pkg.txt`. This validates package identities, not board assembly or Vivado DRC. Connector pin numbers are not FPGA package pins.
 
 [AMD package source](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/zynq-ultrascale-plus-package-device-pinout-files.html), archive `zupall.zip`. Checked pin-table SHA-256: `EA168ED77CB4F433EC0D8D49598D56EA74F4A7EDCC619BF4189BA940586C2915`.
 
@@ -29,7 +29,7 @@ The user confirms both enables are active high and the enable bank supply is 3.3
 
 Bank 66 is at 1.8 V, as confirmed by the user. The schematic shows **ADN4622BRNZ**, a bidirectional LVDS isolation arrangement with two channels each way. It is not an ADN4662 and does not turn the FPGA interface into single-ended signals.
 
-R3026/R3027 are DNP. Candidate XDC therefore requests `DIFF_TERM_ADV TERM_100` on the FPGA receive pairs with `IOSTANDARD LVDS`. This is the intended HP-bank 1.8 V configuration, subject to actual device DRC and electrical review. R3015/R3016 are drawn as 100-ohm isolator input termination; their populated state is not independently confirmed. Verify pair polarity, connectors, isolator supplies and assembly before powering the external interface.
+R3026/R3027 are DNP. Candidate XDC therefore requests `DIFF_TERM_ADV TERM_100` on the FPGA receive pairs with `IOSTANDARD LVDS`. The pin mapping is confirmed by the supplied schematic, but the standard is still only a candidate: verify AMD LVDS input/output support and VCCO requirements at the confirmed bank-66 rail, especially for the FPGA transmit drivers, before enabling these constraints. R3015/R3016 are drawn as 100-ohm isolator input termination; their populated state is not independently confirmed. Verify pair polarity, connectors, isolator supplies and assembly before powering the external interface.
 
 [AMD DIFF_TERM_ADV](https://docs.amd.com/r/en-US/2026.1/ug912-vivado-properties/DIFF_TERM_ADV) and [UltraScale SelectIO guide](https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug571-ultrascale-selectio.pdf).
 

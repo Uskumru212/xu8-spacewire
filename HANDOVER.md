@@ -19,15 +19,15 @@ Repository: https://github.com/Uskumru212/xu8-spacewire (private). Another ChatG
 
 Nine license-free behavioral scenarios passed: three upstream wire-level bench configurations, four endpoint phase/skew cases, one packet-source test and one telemetry AXI/FIFO test. Native C logger tests also passed. Generic GHDL endpoint synthesis passed. AMD package pin identities and bank types were checked. Read `docs/validation.md` for actual scope and limits.
 
-## Not verified / next work
+## Continuation workstation results (2026-10-14)
 
-Vivado 2026.1 is installed but fails license checks before project Tcl runs. XSim execution also fails licensing. No Vivado project generation, generated IP binding, FPGA implementation, timing closure or hardware link test has succeeded. No bitstream exists.
+The original Vivado 2026.1 license blocker remains an accurate historical note for the originating workstation. On a continuation workstation, Vivado 2025.2 validated the PS/SmartConnect/telemetry block design, generated IP, exported a software-only XSA and passed board-top structural synthesis with the candidate XDC disabled. Vivado rejected the former 0x80000000 HPM0 address, so the telemetry aperture is now 0xA0000000. The reset integration check also found and fixed auxiliary reset polarity. No implementation, timing closure, bitstream or hardware test has succeeded. The Vitis standalone BSP build did not complete because its Java/gRPC process failed to initialize a Windows loopback selector. See `docs/validation.md`.
 
-1. Run `scripts/run_ghdl.ps1` to reproduce the regression; use GHDL rather than blocked XSim.
-2. Obtain/activate the appropriate official AMD license when available; no license file has been generated here.
-3. Resolve bank-65 clock IOSTANDARD using exact R3 electrical information. Pin AH6/AJ6 and 100 MHz are known; electrical configuration remains open.
-4. Execute candidate Vivado recipe, validate IP ports/properties and XDC, inspect CDC and close 400 MHz timing before generating/programming a bitstream.
-5. Perform the physical procedure in `docs/bringup.md`, including remote receive evidence.
+1. Resolve bank-65 clock IOSTANDARD using exact R3 electrical information. Pin AH6/AJ6 and 100 MHz are known; electrical configuration remains open.
+2. Confirm SpaceWire bank-66 transmitter LVDS I/O-standard VCCO compatibility and input electrical limits before enabling candidate XDC. The supplied SOM schematic crop confirms all four D/S differential pair mappings; it does not establish the I/O standard.
+3. Review CDC and constrain input timing, then close 400 MHz timing before device implementation and bitstream generation.
+4. Build the standalone UART app with a working Vitis/standalone BSP, ensuring the linker map is OCM-only.
+5. Perform the physical procedure in `docs/bringup.md`, including UART logs, ILA capture and remote receive evidence.
 
 ## Preserve these hardware facts
 

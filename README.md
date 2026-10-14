@@ -6,7 +6,7 @@ Single-port SpaceWire endpoint for Enclustra Mercury+ XU8 **ME-XU8-7EV-2I-D12E, 
 
 A complete generic SpaceWire Light protocol core is integrated with streaming FIFOs, diagnostics and a deterministic packet source. Nine license-free GHDL simulation scenarios passed on 2026-10-14. Generic endpoint synthesis also passed in GHDL. These are functional checks, not FPGA timing closure or physical link certification.
 
-The board integration candidate includes LVDS buffers, active-high 3.3 V / 5 V enables, a 100-to-400 MHz clock IP interface, VIO controls, ILA probes and a PS UART0 telemetry integration recipe. Vivado project/IP generation, FPGA synthesis, implementation and hardware testing remain blocked or unverified. **No usable bitstream has been produced or loaded.** The clock-bank electrical settings and receiver timing/CDC constraints still need sign-off.
+The board integration candidate includes differential I/O buffers, active-high 3.3 V / 5 V enables, a 100-to-400 MHz clock IP interface, VIO controls, ILA probes and a PS UART0 telemetry integration recipe. On a Vivado 2025.2 workstation, the PS/SmartConnect block design validated, a software-only XSA was exported, and board-top synthesis passed with the candidate XDC disabled. Implementation, timing closure, electrical sign-off and hardware testing remain unverified. **No usable bitstream has been produced or loaded.**
 
 ## Architecture
 
@@ -36,7 +36,7 @@ Logs are written to `build/ghdl`. The runner fails on simulator errors or missin
 
 ## Vivado workflow after licensing
 
-Target part: `xczu7ev-fbvb900-2-i`. Installed version during development: Vivado 2026.1.
+Target part: `xczu7ev-fbvb900-2-i`. The original workstation had Vivado 2026.1 license trouble; continuation validation used Vivado 2025.2.
 
 ```powershell
 # Choose ONE, in a fresh build/vivado directory:
@@ -45,7 +45,7 @@ Target part: `xczu7ev-fbvb900-2-i`. Installed version during development: Vivado
 & 'C:\AMDDesignTools\2026.1\Vivado\bin\vivado.bat' -mode batch -source scripts/create_board_project.tcl
 ```
 
-Both target `build/vivado/xu8_spacewire.xpr`; they do not overwrite an existing project. The first is a protocol development project. The second includes a **disabled candidate XDC**, because the R3 clock input electrical standard is unresolved. Neither script launches implementation or programming. The board IP-generation recipe has not been executed under Vivado.
+Both target `build/vivado/xu8_spacewire.xpr`; they do not overwrite an existing project. The first is a protocol development project. The second includes a **disabled candidate XDC**, because the R3 clock input electrical standard and SpaceWire I/O standard sign-off remain pending. `scripts/check_board_integration.tcl` validates integration and structural synthesis; it exports no bitstream and does not launch implementation or programming. See `docs/validation.md` for actual results and limits.
 
 ## Files and continuation
 

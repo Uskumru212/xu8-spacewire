@@ -12,7 +12,7 @@ Terminal settings: **115200 baud, 8 data bits, no parity, 1 stop bit, no flow co
 
 `SpaceWire status/counters -> 400 MHz telemetry registers + event FIFO -> dual-clock AXI SmartConnect -> PS A53 standalone application -> UART0 MIO39`
 
-The candidate board recipe now creates a PS subsystem with UART0 and HPM0 enabled, a 100 MHz PS-side AXI clock and a 400 MHz telemetry-side clock. SmartConnect bridges those clock domains; no unsynchronized multi-bit status bus crosses directly into the PS domain. Clock/reset propagation, address-segment inference and all IP generation remain unverified in Vivado because of the license blocker.
+The candidate board recipe creates a PS subsystem with UART0 and HPM0 enabled, a 100 MHz PS-side AXI clock and a 400 MHz telemetry-side clock. SmartConnect bridges those clock domains; no unsynchronized multi-bit status bus crosses directly into the PS domain. Vivado 2025.2 validated the block design, generated its IP and exported a software-only XSA. The board top also passed structural synthesis with the candidate XDC disabled. This does not validate I/O electrical settings, timing closure, bitstream generation or UART hardware output. See `validation.md`.
 
 The test application is intentionally OCM-only, with the PS DDR controller disabled in this recipe. A generated standalone BSP/linker script must place code, data, vectors, stack and heap in the available OCM region. Do not accept a DDR linker default. No flash update or Linux image is prepared.
 
