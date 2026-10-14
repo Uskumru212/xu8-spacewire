@@ -1,46 +1,48 @@
 # Hardware notes
 
-## Schematic-transcribed signals
+## Target and package pins
 
-| Signal | FPGA package pin | Direction at FPGA |
-| --- | --- | --- |
-| Din_P | AC8 | Input |
-| Din_N | AC7 | Input |
-| Sin_P | AA2 | Input |
-| Sin_N | AA1 | Input |
-| Dout_P | AD1 | Output |
-| Dout_N | AE1 | Output |
-| Sout_P | AD2 | Output |
-| Sout_N | AE2 | Output |
-| +3V3_P_EN | G15 | Output |
-| +5V_EN | K15 | Output |
+User-supplied module: ME-XU8-7EV-2I-D12E, revision R3. Enclustra identifies the device as XCZU7EV-2FBVB900I. Vivado part: `xczu7ev-fbvb900-2-i`.
 
-Validate every pin against the ME-XU8-7EV-2I-D12E R3 pinout and the selected Vivado part before generating constraints. Connector pin numbers must not be confused with FPGA package pins.
+| Signal | P pin | N pin | AMD bank/type |
+| --- | --- | --- | --- |
+| SpaceWire Data input | AC8 | AC7 | 66 / HP |
+| SpaceWire Strobe input | AA2 | AA1 | 66 / HP |
+| SpaceWire Data output | AD1 | AE1 | 66 / HP |
+| SpaceWire Strobe output | AD2 | AE2 | 66 / HP |
+| Onboard 100 MHz clock | AH6 | AJ6 | 65 / HP |
 
-## Power enables
+| Rail enable | Package pin | AMD bank/type | Intended level |
+| --- | --- | --- | --- |
+| +3V3_P_EN | G15 | 48 / HD | High |
+| +5V_EN | K15 | 48 / HD | High |
 
-The user confirms both enables are active high and their FPGA bank supply is 3.3 V. Intended behavior is to drive both outputs high after FPGA configuration. LVCMOS33 is the candidate standard, pending device-pin/bank validation. These outputs enable external power circuits; they do not generate the 3.3 V or 5 V rails.
+SpaceWire and enable pins were transcribed from the user's schematics. Clock pins come from Enclustra's reference. All listed pin identities, pairs and bank types were checked against AMD's official `xczu7evfbvb900pkg.txt`. This validates package identities, not board assembly or Vivado DRC. Connector pin numbers are not FPGA package pins.
 
-Pre-configuration levels depend on board circuitry and FPGA configuration behavior. No power-good input or required rail sequencing has been established.
+[AMD package source](https://www.amd.com/en/developer/resources/adaptive-socs-and-fpgas/package-pinout-files/zynq-ultrascale-plus-package-device-pinout-files.html), archive `zupall.zip`. Checked pin-table SHA-256: `EA168ED77CB4F433EC0D8D49598D56EA74F4A7EDCC619BF4189BA940586C2915`.
 
-## SpaceWire electrical interface
+## Power outputs
 
-Bank 66 supply is 1.8 V, per the user. The schematic shows an ADN4622BRNZ LVDS isolator with two channels in each direction. Signals remain differential on the FPGA side. Do not substitute an ADN4662 single-ended receiver model.
+The user confirms both enables are active high and the enable bank supply is 3.3 V. The board top drives both high after FPGA configuration; candidate constraints use LVCMOS33. These pins enable external circuits; they do not generate supply voltages. Pre-configuration levels depend on the carrier. No sequencing or power-good signal has been specified.
 
-R3026 and R3027 on the FPGA receive pairs are DNP, explicitly confirmed by the user. Thus the schematic's drawn 100-ohm resistors are not populated. An appropriate internal differential termination is intended, but the supported standard, termination properties, common-mode range, and bank compatibility must be checked in AMD documentation and Vivado before use.
+## SpaceWire interface
 
-R3015 and R3016 are shown as 100-ohm resistors at the isolator inputs; their actual assembly status has not been independently confirmed. Trace polarity through the isolator and connector before hardware testing.
+Bank 66 is at 1.8 V, as confirmed by the user. The schematic shows **ADN4622BRNZ**, a bidirectional LVDS isolation arrangement with two channels each way. It is not an ADN4662 and does not turn the FPGA interface into single-ended signals.
 
-## Clock
+R3026/R3027 are DNP. Candidate XDC therefore requests `DIFF_TERM_ADV TERM_100` on the FPGA receive pairs with `IOSTANDARD LVDS`. This is the intended HP-bank 1.8 V configuration, subject to actual device DRC and electrical review. R3015/R3016 are drawn as 100-ohm isolator input termination; their populated state is not independently confirmed. Verify pair polarity, connectors, isolator supplies and assembly before powering the external interface.
 
-The published XU8 manual describes an onboard 100 MHz LVDS oscillator connected to PL bank 65. The official Enclustra PE3 reference at commit `10271e532b01b0304ce2f3a051721485dc38a47a` assigns AH6/AJ6 to CLK100_PL_P/N and uses DIFF_SSTL12_DCI for the memory-related clock input. Do not assign the SpaceWire bank's 1.8 V LVDS settings to this clock bank without checking the R3 oscillator circuit, bank supply, and AMD input requirements. The planned clock source is the onboard oscillator, with MMCM/PLL-generated implementation clocks.
+[AMD DIFF_TERM_ADV](https://docs.amd.com/r/en-US/2026.1/ug912-vivado-properties/DIFF_TERM_ADV) and [UltraScale SelectIO guide](https://www.amd.com/content/dam/xilinx/support/documents/user_guides/ug571-ultrascale-selectio.pdf).
 
-Source: https://github.com/enclustra/Mercury_XU8_PE3_Reference_Design/blob/10271e532b01b0304ce2f3a051721485dc38a47a/src/Mercury_XU8_PE3.tcl
+## Clock and remaining constraints
 
-The PE3 reference uses G15/K15 for different carrier functions at LVCMOS18. This is not evidence that the user's carrier uses that voltage. The user confirms 3.3 V for the power-enable bank on their carrier; verify the device bank type and R3 mapping before applying LVCMOS33.
+The XU8 onboard oscillator provides 100 MHz to PL bank 65. The [official Enclustra PE3 reference](https://github.com/enclustra/Mercury_XU8_PE3_Reference_Design/blob/10271e532b01b0304ce2f3a051721485dc38a47a/src/Mercury_XU8_PE3.tcl) assigns AH6/AJ6 and uses DIFF_SSTL12_DCI for this memory-related clock interface. The manual describes LVDS with external termination. Resolve the exact R3 bank-65 supply and oscillator input requirements before choosing the clock IOSTANDARD. Bank 66's supply is not evidence of bank 65's voltage.
 
-A 200 MHz transmit clock is a proposed way to emit one bit per rising edge. The asynchronous Data/Strobe receiver requires a separately justified capture architecture; 200 Mbit/s operation without DDR primitives is not yet proven.
+The candidate XDC deliberately leaves the clock IOSTANDARD unset and is disabled in the board project recipe. Do not suppress NSTD-1. The IP recipe requests 400 MHz from the onboard 100 MHz clock; this rate has only been modeled, not achieved in FPGA timing.
+
+The generic receiver samples asynchronous D/S on rising edges with preserved synchronizer registers. After synthesis, identify the first-stage D/S input flops, review CDC, constrain only the intended asynchronous input paths, and retain timing through all later stages. Check synchronizer placement and routing skew; do not blanket-false-path the receiver. Physical sampling margin must include isolator/PCB skew and jitter.
+
+The PE3 reference uses G15/K15 at LVCMOS18 for different carrier functions. The user has a custom carrier and confirms 3.3 V; PE3 carrier assignments must not overwrite those facts.
 
 ## Programming
 
-The user reports a Digilent "FTAG-HS3" programmer. The probable model is JTAG-HS3; confirm the label and Hardware Manager detection before documenting the cable as verified. Carrier JTAG header mapping, reference voltage, and target connection have not yet been inspected.
+User-reported cable: Digilent "FTAG-HS3", likely JTAG-HS3. Exact model, header mapping, reference voltage and Hardware Manager detection remain unverified. The remote SpaceWire device model is unknown.
