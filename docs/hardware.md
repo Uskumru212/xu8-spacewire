@@ -33,7 +33,11 @@ R3015 and R3016 are shown as 100-ohm resistors at the isolator inputs; their act
 
 ## Clock
 
-The published XU8 manual describes an onboard 100 MHz LVDS oscillator connected to PL bank 65. Verify the exact R3 clock pins and oscillator implementation from the R3 module documentation/reference design. The planned clock source is this onboard oscillator, with MMCM/PLL-generated implementation clocks.
+The published XU8 manual describes an onboard 100 MHz LVDS oscillator connected to PL bank 65. The official Enclustra PE3 reference at commit `10271e532b01b0304ce2f3a051721485dc38a47a` assigns AH6/AJ6 to CLK100_PL_P/N and uses DIFF_SSTL12_DCI for the memory-related clock input. Do not assign the SpaceWire bank's 1.8 V LVDS settings to this clock bank without checking the R3 oscillator circuit, bank supply, and AMD input requirements. The planned clock source is the onboard oscillator, with MMCM/PLL-generated implementation clocks.
+
+Source: https://github.com/enclustra/Mercury_XU8_PE3_Reference_Design/blob/10271e532b01b0304ce2f3a051721485dc38a47a/src/Mercury_XU8_PE3.tcl
+
+The PE3 reference uses G15/K15 for different carrier functions at LVCMOS18. This is not evidence that the user's carrier uses that voltage. The user confirms 3.3 V for the power-enable bank on their carrier; verify the device bank type and R3 mapping before applying LVCMOS33.
 
 A 200 MHz transmit clock is a proposed way to emit one bit per rising edge. The asynchronous Data/Strobe receiver requires a separately justified capture architecture; 200 Mbit/s operation without DDR primitives is not yet proven.
 

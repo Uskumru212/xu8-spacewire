@@ -1,0 +1,13 @@
+signal,package_pin,direction,candidate_iostandard,status
+spw_din_p,AC8,input,LVDS,Pending device database validation
+spw_din_n,AC7,input,LVDS,Pending device database validation
+spw_sin_p,AA2,input,LVDS,Pending device database validation
+spw_sin_n,AA1,input,LVDS,Pending device database validation
+spw_dout_p,AD1,output,LVDS,Pending device database validation
+spw_dout_n,AE1,output,LVDS,Pending device database validation
+spw_sout_p,AD2,output,LVDS,Pending device database validation
+spw_sout_n,AE2,output,LVDS,Pending device database validation
+rail_3v3_enable,G15,output,LVCMOS33,Pending device database validation
+rail_5v_enable,K15,output,LVCMOS33,Pending device database validation
+clk100_p,AH6,input,UNRESOLVED,Enclustra reference uses DIFF_SSTL12_DCI; verify R3 electrical interface
+clk100_n,AJ6,input,UNRESOLVED,Enclustra reference uses DIFF_SSTL12_DCI; verify R3 electrical interface
