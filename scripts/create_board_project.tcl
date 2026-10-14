@@ -2,10 +2,11 @@
 # IP property names checked against installed 2026.1 component metadata;
 # IP generation and device implementation have NOT been executed.
 source [file join [file dirname [info script]] create_project.tcl]
-add_files [file join $root rtl spw_telemetry_axi.vhd]
-set_property file_type {VHDL 2008} [get_files spw_telemetry_axi.vhd]
+add_files [list [file join $root rtl spw_telemetry_axi.vhd]]
+# Vivado module references reject a VHDL-2008 top; this unit is VHDL-93 compatible.
+set_property file_type VHDL [get_files spw_telemetry_axi.vhd]
 source [file join $root scripts create_telemetry_bd.tcl]
-add_files [file join $root rtl xu8_spacewire_top.vhd]
+add_files [list [file join $root rtl xu8_spacewire_top.vhd]]
 set_property file_type {VHDL 2008} [get_files xu8_spacewire_top.vhd]
 set_property top xu8_spacewire_top [get_filesets sources_1]
 create_ip -name clk_wiz -vendor xilinx.com -library ip -version 6.0 -module_name spw_clock
@@ -22,7 +23,7 @@ set_property -dict [list CONFIG.C_NUM_OF_PROBES {4} CONFIG.C_PROBE0_WIDTH {16} \
     CONFIG.C_PROBE1_WIDTH {320} CONFIG.C_PROBE2_WIDTH {20} \
     CONFIG.C_PROBE3_WIDTH {4} CONFIG.C_DATA_DEPTH {1024}] [get_ips spw_ila]
 generate_target all [get_ips {spw_clock spw_vio spw_ila}]
-add_files -fileset constrs_1 [file join $root constraints xu8_r3_candidate.xdc]
+add_files -fileset constrs_1 [list [file join $root constraints xu8_r3_candidate.xdc]]
 set_property IS_ENABLED false [get_files xu8_r3_candidate.xdc]
 update_compile_order -fileset sources_1
 puts "BOARD_CANDIDATE_CREATED: candidate XDC disabled pending electrical/CDC review."

@@ -25,10 +25,12 @@ entity spw_telemetry_axi is
         s_axi_rresp: out std_logic_vector(1 downto 0);
         s_axi_rvalid: out std_logic; s_axi_rready: in std_logic
     );
+end;
+architecture rtl of spw_telemetry_axi is
     attribute X_INTERFACE_INFO: string;
     attribute X_INTERFACE_PARAMETER: string;
     attribute X_INTERFACE_INFO of aclk: signal is "xilinx.com:signal:clock:1.0 aclk CLK";
-    attribute X_INTERFACE_PARAMETER of aclk: signal is "ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET aresetn";
+    attribute X_INTERFACE_PARAMETER of aclk: signal is "ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET aresetn, FREQ_HZ 400000000";
     attribute X_INTERFACE_INFO of aresetn: signal is "xilinx.com:signal:reset:1.0 aresetn RST";
     attribute X_INTERFACE_PARAMETER of aresetn: signal is "POLARITY ACTIVE_LOW";
     attribute X_INTERFACE_INFO of s_axi_awaddr: signal is "xilinx.com:interface:aximm:1.0 S_AXI AWADDR";
@@ -51,8 +53,7 @@ entity spw_telemetry_axi is
     attribute X_INTERFACE_INFO of s_axi_rvalid: signal is "xilinx.com:interface:aximm:1.0 S_AXI RVALID";
     attribute X_INTERFACE_INFO of s_axi_rready: signal is "xilinx.com:interface:aximm:1.0 S_AXI RREADY";
     attribute X_INTERFACE_PARAMETER of s_axi_awaddr: signal is "PROTOCOL AXI4LITE, DATA_WIDTH 32, ADDR_WIDTH 12, READ_WRITE_MODE READ_WRITE";
-end;
-architecture rtl of spw_telemetry_axi is
+
     type event_array is array (0 to EVENT_DEPTH-1) of std_logic_vector(63 downto 0);
     signal events: event_array;
     signal wr, rd: natural range 0 to EVENT_DEPTH-1 := 0;
@@ -65,13 +66,18 @@ architecture rtl of spw_telemetry_axi is
     signal snap_counters: std_logic_vector(319 downto 0) := (others=>'0');
     signal snap_time: std_logic_vector(31 downto 0) := (others=>'0');
     signal rv, bv, aw_pending, w_pending: std_logic := '0';
+    -- Internal ready nets keep the BD module reference compatible with VHDL-93.
+    signal arready_i, awready_i, wready_i: std_logic;
     function next_ptr(p: natural) return natural is
     begin if p=EVENT_DEPTH-1 then return 0; else return p+1; end if; end;
 begin
-    s_axi_arready <= not rv and aresetn;
+    arready_i <= not rv and aresetn;
+    s_axi_arready <= arready_i;
     s_axi_rvalid <= rv;
-    s_axi_awready <= not aw_pending and not bv and aresetn;
-    s_axi_wready <= not w_pending and not bv and aresetn;
+    awready_i <= not aw_pending and not bv and aresetn;
+    wready_i <= not w_pending and not bv and aresetn;
+    s_axi_awready <= awready_i;
+    s_axi_wready <= wready_i;
     s_axi_bvalid <= bv;
     s_axi_bresp <= "10"; -- All writes rejected with SLVERR, never stalled forever.
     process(aclk)
@@ -92,14 +98,14 @@ begin
                 n:=used;
                 if rv='1' and s_axi_rready='1' then rv<='0'; end if;
                 if bv='1' and s_axi_bready='1' then bv<='0'; end if;
-                aw_seen:=aw_pending='1' or (s_axi_awvalid='1' and s_axi_awready='1');
-                w_seen:=w_pending='1' or (s_axi_wvalid='1' and s_axi_wready='1');
+                aw_seen:=aw_pending='1' or (s_axi_awvalid='1' and awready_i='1');
+                w_seen:=w_pending='1' or (s_axi_wvalid='1' and wready_i='1');
                 if aw_seen then aw_pending<='1'; end if;
                 if w_seen then w_pending<='1'; end if;
                 if aw_seen and w_seen and bv='0' then
                     bv<='1'; aw_pending<='0'; w_pending<='0';
                 end if;
-                if s_axi_arvalid='1' and s_axi_arready='1' then
+                if s_axi_arvalid='1' and arready_i='1' then
                     rv<='1'; s_axi_rdata<=(others=>'0'); s_axi_rresp<="00";
                     address:=to_integer(unsigned(s_axi_araddr));
                     case address is

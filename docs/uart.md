@@ -33,7 +33,7 @@ The monitor does not stream 200 Mbit/s payload over a 115200 baud UART. RX-valid
 
 ## Register map
 
-PS base address in the candidate recipe and application: `0x80000000`, 4 KiB aperture. Access as Device memory. One software reader owns the event pop/timestamp pair. All reads are 32-bit aligned. All writes return SLVERR.
+PS base address in the candidate recipe and application: `0xA0000000`, 4 KiB aperture in M_AXI_HPM0_FPD's low address window. The earlier `0x80000000` address was rejected by Vivado 2025.2 address validation. Access as Device memory. One software reader owns the event pop/timestamp pair. All reads are 32-bit aligned. All writes return SLVERR.
 
 | Offset | Read meaning |
 | --- | --- |

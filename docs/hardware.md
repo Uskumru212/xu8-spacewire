@@ -35,7 +35,13 @@ R3026/R3027 are DNP. Candidate XDC therefore requests `DIFF_TERM_ADV TERM_100` o
 
 ## Clock and remaining constraints
 
-The XU8 onboard oscillator provides 100 MHz to PL bank 65. The [official Enclustra PE3 reference](https://github.com/enclustra/Mercury_XU8_PE3_Reference_Design/blob/10271e532b01b0304ce2f3a051721485dc38a47a/src/Mercury_XU8_PE3.tcl) assigns AH6/AJ6 and uses DIFF_SSTL12_DCI for this memory-related clock interface. The manual describes LVDS with external termination. Resolve the exact R3 bank-65 supply and oscillator input requirements before choosing the clock IOSTANDARD. Bank 66's supply is not evidence of bank 65's voltage.
+Continuation evidence: [R3 clock investigation](clock-investigation.md) establishes
+that bank 65 is internally supplied at 1.2 V and the 100 MHz LVDS clock has
+external 100-ohm termination, using Enclustra's R3-capable V10 manual. The
+remaining question is the input standard/electrical compatibility, not the bank
+voltage. The exact oscillator part/coupling circuit is not in the public manual.
+
+The XU8 onboard oscillator provides 100 MHz to PL bank 65. The [official Enclustra PE3 reference](https://github.com/enclustra/Mercury_XU8_PE3_Reference_Design/blob/10271e532b01b0304ce2f3a051721485dc38a47a/src/Mercury_XU8_PE3.tcl) assigns AH6/AJ6 and uses DIFF_SSTL12_DCI for this memory-related clock interface. The manual describes LVDS with external termination. Resolve the oscillator input requirements before choosing the clock IOSTANDARD. Bank 66's supply is not evidence of bank 65's voltage.
 
 The candidate XDC deliberately leaves the clock IOSTANDARD unset and is disabled in the board project recipe. Do not suppress NSTD-1. The IP recipe requests 400 MHz from the onboard 100 MHz clock; this rate has only been modeled, not achieved in FPGA timing.
 

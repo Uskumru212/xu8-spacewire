@@ -10,7 +10,7 @@
 #include "xil_mmu.h"
 #include "sleep.h"
 
-#define TELEMETRY_BASE ((UINTPTR)0x80000000u)
+#define TELEMETRY_BASE ((UINTPTR)0xA0000000u)
 #define UART0_BASE ((UINTPTR)0xff000000u)
 static XUartPs uart;
 static uint32_t read_register(void *unused, uint32_t offset)

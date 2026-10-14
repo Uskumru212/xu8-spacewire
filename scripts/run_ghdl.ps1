@@ -4,6 +4,8 @@ $root = Split-Path $PSScriptRoot -Parent
 $build = Join-Path $root 'build/ghdl'
 New-Item -ItemType Directory -Force $build | Out-Null
 $GhdlPath = (Get-Command $GhdlPath -ErrorAction Stop).Source
+# Vivado requires port interface attributes in architecture scope; GHDL treats
+# this vendor extension as a warning with -frelaxed-rules. Assertions remain errors.
 function Invoke-Ghdl([string[]]$Arguments, [string]$LogName) {
     $output = & $GhdlPath @Arguments 2>&1
     $code = $LASTEXITCODE
@@ -20,9 +22,9 @@ try {
     $files += @('rtl/spw_telemetry_axi.vhd','rtl/spw_endpoint.vhd','rtl/spw_test_source.vhd','rtl/xu8_spacewire_top.vhd',
         'vendor/spacewire_light/bench/spwlink_tb.vhd','sim/tb_protocol_200.vhd',
         'sim/tb_endpoint.vhd','sim/tb_test_source.vhd','sim/tb_telemetry.vhd') | ForEach-Object { Join-Path $root $_ }
-    $null = Invoke-Ghdl (@('-a','--std=08') + $files) 'analysis.log'
+    $null = Invoke-Ghdl (@('-a','--std=08','-frelaxed-rules') + $files) 'analysis.log'
     foreach ($test in @('spwlink_tb','tb_protocol_200','tb_test_source','tb_telemetry')) {
-        $result = Invoke-Ghdl @('-r','--std=08',$test,'--assert-level=error','--ieee-asserts=disable-at-0','--stop-time=2ms') "$test.log"
+        $result = Invoke-Ghdl @('-r','--std=08','-frelaxed-rules',$test,'--assert-level=error','--ieee-asserts=disable-at-0','--stop-time=2ms') "$test.log"
         $marker = if ($test -in @('tb_test_source','tb_telemetry')) { 'TEST_PASS' } else { 'Done\.' }
         $expected = if ($test -eq 'tb_protocol_200') { 2 } else { 1 }
         if ([regex]::Matches($result,$marker).Count -ne $expected) { throw "Missing completion markers: $test" }
@@ -30,7 +32,7 @@ try {
     }
     foreach ($case in @(@(0,0),@(700,200),@(1700,500),@(2300,800))) {
         $name = "endpoint_phase$($case[0])_skew$($case[1])"
-        $result = Invoke-Ghdl @('-r','--std=08','tb_endpoint',"-gPHASE_PS=$($case[0])", "-gSKEW_PS=$($case[1])",'--assert-level=error','--ieee-asserts=disable-at-0','--stop-time=2ms') "$name.log"
+        $result = Invoke-Ghdl @('-r','--std=08','-frelaxed-rules','tb_endpoint',"-gPHASE_PS=$($case[0])", "-gSKEW_PS=$($case[1])",'--assert-level=error','--ieee-asserts=disable-at-0','--stop-time=2ms') "$name.log"
         if ($result -notmatch 'TEST_PASS') { throw "Missing completion marker: $name" }
         Write-Host "PASS $name"
     }
