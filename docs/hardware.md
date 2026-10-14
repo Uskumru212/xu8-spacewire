@@ -46,3 +46,7 @@ The PE3 reference uses G15/K15 at LVCMOS18 for different carrier functions. The 
 ## Programming
 
 User-reported cable: Digilent "FTAG-HS3", likely JTAG-HS3. Exact model, header mapping, reference voltage and Hardware Manager detection remain unverified. The remote SpaceWire device model is unknown.
+
+## SOM UART
+
+User schematic: SOM_UART_RX is PS MIO38 (connector105, TP615), SOM_UART_TX is PS MIO39 (connector107, TP616). UART0 is selected. APU_UART on MIO48/49 is a separate interface. These are PS MIO assignments, not additional PL XDC pins. See [UART integration](uart.md).

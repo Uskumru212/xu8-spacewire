@@ -10,6 +10,11 @@ entity xu8_spacewire_top is
          rail_3v3_enable, rail_5v_enable: out std_logic);
 end;
 architecture rtl of xu8_spacewire_top is
+    component telemetry_system_wrapper is
+        port(spw_clk, spw_resetn: in std_logic;
+             status, control: in std_logic_vector(15 downto 0);
+             counters: in std_logic_vector(319 downto 0));
+    end component;
     component IBUFDS is
         port(I, IB: in std_logic; O: out std_logic);
     end component;
@@ -63,6 +68,10 @@ begin
             tick_in=>'0',time_in=>"000000",ctrl_in=>"00",
             tick_out=>open,time_out=>open,ctrl_out=>open,
             data_in=>di,strobe_in=>si,data_out=>do_i,strobe_out=>so_i,status=>status,counters=>counters);
+    -- Telemetry persists across endpoint reset; only clock/PS resets clear it.
+    uart_telemetry: telemetry_system_wrapper
+        port map(spw_clk=>clk,spw_resetn=>not reset_pipe(3),
+                 status=>status,control=>control,counters=>counters);
     analyzer: spw_ila port map(clk,status,counters,
         rx_valid & rx_flag & rx_data & tx_valid & tx_flag & tx_data,
         di & si & do_i & so_i);

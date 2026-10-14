@@ -2,6 +2,9 @@
 # IP property names checked against installed 2026.1 component metadata;
 # IP generation and device implementation have NOT been executed.
 source [file join [file dirname [info script]] create_project.tcl]
+add_files [file join $root rtl spw_telemetry_axi.vhd]
+set_property file_type {VHDL 2008} [get_files spw_telemetry_axi.vhd]
+source [file join $root scripts create_telemetry_bd.tcl]
 add_files [file join $root rtl xu8_spacewire_top.vhd]
 set_property file_type {VHDL 2008} [get_files xu8_spacewire_top.vhd]
 set_property top xu8_spacewire_top [get_filesets sources_1]

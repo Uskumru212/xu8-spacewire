@@ -4,9 +4,9 @@ Single-port SpaceWire endpoint for Enclustra Mercury+ XU8 **ME-XU8-7EV-2I-D12E, 
 
 ## Status
 
-A complete generic SpaceWire Light protocol core is integrated with streaming FIFOs, diagnostics and a deterministic packet source. Eight license-free GHDL simulation scenarios passed on 2026-10-14. Generic endpoint synthesis also passed in GHDL. These are functional checks, not FPGA timing closure or physical link certification.
+A complete generic SpaceWire Light protocol core is integrated with streaming FIFOs, diagnostics and a deterministic packet source. Nine license-free GHDL simulation scenarios passed on 2026-10-14. Generic endpoint synthesis also passed in GHDL. These are functional checks, not FPGA timing closure or physical link certification.
 
-The board integration candidate includes LVDS buffers, active-high 3.3 V / 5 V enables, a 100-to-400 MHz clock IP interface, VIO controls and ILA probes. Vivado project/IP generation, FPGA synthesis, implementation and hardware testing remain blocked or unverified. **No usable bitstream has been produced or loaded.** The clock-bank electrical settings and receiver timing/CDC constraints still need sign-off.
+The board integration candidate includes LVDS buffers, active-high 3.3 V / 5 V enables, a 100-to-400 MHz clock IP interface, VIO controls, ILA probes and a PS UART0 telemetry integration recipe. Vivado project/IP generation, FPGA synthesis, implementation and hardware testing remain blocked or unverified. **No usable bitstream has been produced or loaded.** The clock-bank electrical settings and receiver timing/CDC constraints still need sign-off.
 
 ## Architecture
 
@@ -52,6 +52,7 @@ Both target `build/vivado/xu8_spacewire.xpr`; they do not overwrite an existing 
 - [Validation evidence and limits](docs/validation.md)
 - [Hardware facts and open electrical checks](docs/hardware.md)
 - [VIO/ILA controls, counters and hardware test procedure](docs/bringup.md)
+- [SOM UART process logging and standalone PS application](docs/uart.md)
 - [Handover for another account or machine](HANDOVER.md)
 - [Third-party provenance and licenses](vendor/spacewire_light/UPSTREAM.md)
 

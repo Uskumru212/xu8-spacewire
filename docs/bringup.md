@@ -77,3 +77,7 @@ Counters saturate at 0xFFFFFFFF. Error events count rising assertions. The endpo
 ## Physical test sequence
 
 Start with traffic disabled, confirm rail voltages and oscillator, then observe initialization and stable Run at both endpoints. Record error counters. Enable a compatible test payload, check that the remote device actually receives complete expected packets and that return packets arrive. A local Run flag or TX FIFO count alone does not prove remote delivery. Capture disconnect/reconnect behavior and sustained error counts under the intended operating conditions. Record cable, device settings, payload, duration and measured rate in a new validation report.
+
+## SOM UART log
+
+The candidate board now includes PS UART0 telemetry and a standalone OCM application. See [UART setup and limits](uart.md). No physical analyzer or UART connection has been made.

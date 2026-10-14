@@ -16,7 +16,7 @@ Date: 2026-10-14. No physical FPGA was programmed.
 | AMD official package pin table | All 12 proposed package pins checked, including differential polarity and bank type |
 | Earlier standalone SV xvlog/xelab | Compiled/elaborated; XSim execution blocked by license |
 
-The eight behavioral scenarios are one default upstream bench, two high-rate upstream bench instances, one packet-source bench and four endpoint configurations. `scripts/run_ghdl.ps1` checks explicit completion markers rather than treating a stop-time as success. Logs are regenerated under `build/ghdl` and excluded from Git.
+The original eight behavioral scenarios are one default upstream bench, two high-rate upstream bench instances, one packet-source bench and four endpoint configurations. `scripts/run_ghdl.ps1` checks explicit completion markers rather than treating a stop-time as success. Logs are regenerated under `build/ghdl` and excluded from Git.
 
 ## Endpoint scenario
 
@@ -43,3 +43,9 @@ Vivado 2026.1 reports that no valid license is found before project Tcl executes
 GHDL: official 6.0.0 Windows mcode release, archive SHA-256 `C1562B2A4767E34D33159B536B5E36A8A38EBDB6E7672AA9969A4F4AC2CADFFE`.
 
 SpaceWire Light source commit: `d26037ffc408dac1d21bab160e185c4798334681`, with timer-width and synchronizer-attribute adaptations documented in `vendor/spacewire_light/UPSTREAM.md`.
+
+## SOM UART extension (2026-10-14)
+
+The regression now has nine HDL scenarios, adding tb_telemetry. AXI response stability, atomic counter snapshots, independent AW/W ordering, write rejection, event ordering/overflow, empty/invalid reads, control-change events and reset all passed. GHDL generic synthesis of spw_telemetry_axi passed (64x64 event memory inferred). The native C logger tests passed with -std=c99 -Wall -Wextra -Werror: counter mapping, formatting, bounded event draining, timestamp pairing and invalid identity reporting.
+
+The PS/SmartConnect BD recipe and SOM UART0 application were added but have not been generated or run on the target. Native C tests do not compile/link main.c against an actual standalone BSP. No ELF, actual baud-rate measurement, UART session or ILA trace is available. Tcl lexical checks do not validate Vivado API/property behavior.

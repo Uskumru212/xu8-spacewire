@@ -17,7 +17,7 @@ Repository: https://github.com/Uskumru212/xu8-spacewire (private). Another ChatG
 
 ## Verified on 2026-10-14
 
-Eight license-free behavioral scenarios passed: three upstream wire-level bench configurations, four endpoint phase/skew cases and one packet-source test. Generic GHDL endpoint synthesis passed. AMD package pin identities and bank types were checked. Read `docs/validation.md` for actual scope and limits.
+Nine license-free behavioral scenarios passed: three upstream wire-level bench configurations, four endpoint phase/skew cases, one packet-source test and one telemetry AXI/FIFO test. Native C logger tests also passed. Generic GHDL endpoint synthesis passed. AMD package pin identities and bank types were checked. Read `docs/validation.md` for actual scope and limits.
 
 ## Not verified / next work
 
@@ -42,3 +42,7 @@ Vivado: `C:\AMDDesignTools\2026.1\Vivado\bin\vivado.bat`.
 Portable GHDL used for the recorded tests: `C:\Users\eerde\Documents\Codex\2026-10-14\and-then\work\tools\ghdl\bin\ghdl.exe`. This binary is outside the repo; use `scripts/get_ghdl.ps1` on a new machine.
 
 Legacy standalone SV files are not the integrated endpoint. Do not confuse their previous compile-only results with the passing VHDL protocol regression. Do not claim the hardware link works until physical evidence exists.
+
+## SOM UART addition
+
+The user requested full process logging through SOM UART and explicitly chose an independent bare-metal application (no existing OS/application to preserve). UART0 RX is MIO38 / connector105 / TP615; TX is MIO39 / connector107 / TP616. APU_UART on MIO48/49 is separate. The candidate board includes a PS + dual-clock AXI bridge to a snapshot register bank and 64-event FIFO, with a standalone A53/OCM UART monitor source. See docs/uart.md. FPGA telemetry and portable C log tests passed; target BSP/ELF, generated BD, PS initialization and physical UART are untested. ILA is instantiated in source; no external analyzer was attached and no hardware capture exists.
