@@ -56,3 +56,9 @@ User-reported cable: Digilent "FTAG-HS3", likely JTAG-HS3. Exact model, header m
 ## SOM UART
 
 User schematic: SOM_UART_RX is PS MIO38 (connector105, TP615), SOM_UART_TX is PS MIO39 (connector107, TP616). UART0 is selected. APU_UART on MIO48/49 is a separate interface. These are PS MIO assignments, not additional PL XDC pins. See [UART integration](uart.md).
+
+## Custom-carrier MIO voltage confirmation (2026-10-15)
+
+The user confirmed VCC_CFG_MIO = 3.3 V. Configure PS banks 501/503 as LVCMOS33;
+PS banks 500/502 remain LVCMOS18. The independent bank-65 clock-input
+IOSTANDARD review remains open.

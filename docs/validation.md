@@ -59,3 +59,15 @@ Vivado board-top synthesis completed with the candidate XDC deliberately disable
 Enclustra's R3-capable manual confirms bank 65 at 1.2 V and external 100-ohm termination on the 100 MHz LVDS oscillator. The candidate clock IOSTANDARD is still unset because the manual does not identify the oscillator part/coupling limits and the Enclustra DDR reference selects DIFF_SSTL12_DCI. See `clock-investigation.md`. PS banks 500 and 502 are configured for their fixed 1.8 V supplies. The carrier-supplied VCC_CFG_MIO voltage for banks 501/503 is not known; set `SPW_PS_MIO_STANDARD` only after confirming that rail.
 
 The native UART logger host tests still pass, but the target application has not produced an ELF. Vitis 2025.2's Java/gRPC server failed to initialize a Windows loopback selector in this workstation, so the standalone BSP build did not complete. A software-only XSA alone is not a deployable platform.
+
+## Custom-carrier MIO confirmation (2026-10-15)
+
+The user confirmed VCC_CFG_MIO = 3.3 V. The telemetry recipe now defaults PS
+banks 501/503 to LVCMOS33 while banks 500/502 remain LVCMOS18. On this workstation,
+Vivado 2025.2 regenerated the board project in `V:/vivado-mio33`, asserted the
+MIO settings, force-validated the block design, regenerated its output products
+and exported an updated software-only XSA without a stale-design warning.
+`Open-Vivado.cmd` selects this updated project. The prior successful structural
+synthesis in `V:/vivado` predates the MIO setting change; synthesis was not
+repeated for this configuration-only update. No implementation, bitstream or
+hardware test was performed. The bank-65 PL clock standard remains unresolved.

@@ -1,5 +1,18 @@
 # XU8 R3 clock investigation (2026-10-14)
 
+## Clock-source clarification (2026-10-15)
+
+The SOM already contains the clock sources; no external carrier oscillator is
+required for the current design. Enclustra's public V08 manual, section 2.12
+(page 32), identifies the 33.33 MHz PS oscillator and the 100 MHz LVDS PL
+oscillator on CLK100_P/AH6 and CLK100_N/AJ6, with an external 100-ohm resistor
+on the module. The project already uses this onboard 100 MHz input and requests
+400 MHz from Clock Wizard. The outstanding R3 question concerns the FPGA input
+IOSTANDARD, not the existence or frequency of the oscillator. V08 independently
+confirms the clock topology but does not establish R3 electrical compatibility.
+
+Source: [Enclustra Mercury+ XU8 User Manual V08, section 2.12](https://www.enclustra.com.cn/index.php/cms/index/download/id/375.html#page=32).
+
 ## Evidence
 
 The Enclustra-authored Mercury+ XU8 User Manual, D-0000-454-001,

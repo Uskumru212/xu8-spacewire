@@ -18,18 +18,17 @@ set_property -dict [list \
     CONFIG.PSU__MAXIGP0__DATA_WIDTH {32} \
     CONFIG.PSU__FPGA_PL0_ENABLE {1} \
     CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {100}] [get_bd_cells ps]
-# Banks 501/503 use carrier-supplied VCC_CFG_MIO; no voltage was confirmed.
-# Keep an explicit optional override and block hardware sign-off until reviewed.
+# Custom carrier VCC_CFG_MIO is user-confirmed at 3.3 V (2026-10-15).
+# Banks 501/503 therefore default to LVCMOS33; retain an explicit carrier override.
+set mio_standard LVCMOS33
 if {[info exists ::env(SPW_PS_MIO_STANDARD)]} {
     set mio_standard $::env(SPW_PS_MIO_STANDARD)
     if {$mio_standard ni {LVCMOS18 LVCMOS25 LVCMOS33}} {
         error "SPW_PS_MIO_STANDARD must be LVCMOS18, LVCMOS25 or LVCMOS33"
     }
-    set_property -dict [list CONFIG.PSU_BANK_1_IO_STANDARD $mio_standard \
-        CONFIG.PSU_BANK_3_IO_STANDARD $mio_standard] [get_bd_cells ps]
-} else {
-    puts "HARDWARE_BLOCKER: VCC_CFG_MIO unconfirmed; PS banks 501/503 retain tool defaults."
 }
+set_property -dict [list CONFIG.PSU_BANK_1_IO_STANDARD $mio_standard \
+    CONFIG.PSU_BANK_3_IO_STANDARD $mio_standard] [get_bd_cells ps]
 create_bd_cell -type module -reference spw_telemetry_axi monitor
 create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 bridge
 set_property -dict [list CONFIG.NUM_SI {1} CONFIG.NUM_MI {1} CONFIG.NUM_CLKS {2}] [get_bd_cells bridge]

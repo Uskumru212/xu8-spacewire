@@ -31,6 +31,13 @@ The original Vivado 2026.1 license blocker remains an accurate historical note f
 
 ## Preserve these hardware facts
 
+On 2026-10-15 the user confirmed VCC_CFG_MIO is 3.3 V on the custom carrier.
+PS banks 501/503 default to LVCMOS33 in the telemetry recipe. Banks 500/502
+remain LVCMOS18. This resolves the MIO supply question, not the bank-65 PL clock standard.
+The SOM supplies the onboard 100 MHz PL clock at AH6/AJ6; no external carrier
+oscillator is required. The existing Clock Wizard requests 400 MHz from it.
+The remaining clock issue is the R3 input IOSTANDARD, not clock availability.
+
 Bank66 is user-confirmed 1.8 V. Isolator is ADN4622BRNZ. RX termination R3026/R3027 are DNP; candidate uses internal TERM_100. Both power enables are active high; their bank48 supply is user-confirmed 3.3 V. Do not replace custom-carrier settings with PE3 carrier settings. Programmer was described as Digilent FTAG-HS3, likely JTAG-HS3, not yet detected. All pin mappings and source links are in `docs/hardware.md`.
 
 ## Local paths in the originating environment
