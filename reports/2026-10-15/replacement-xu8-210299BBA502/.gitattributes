@@ -1,0 +1,5 @@
+# Preserve the original bytes covered by SHA256SUMS.
+logs/*.log -text
+captures/*.csv -text
+scripts/*.tcl -text
+test_summary.json -text

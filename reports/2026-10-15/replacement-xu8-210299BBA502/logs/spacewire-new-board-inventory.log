@@ -1,0 +1,67 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Oct 15 16:19:13 2026
+# Process ID         : 20952
+# Current directory  : C:/Users/ErdemErbil/.codex/visualizations/2026/10/15/01a13e86-fcf8-7bf2-9388-11702a845d81/xu8-build
+# Command line       : vivado.exe -mode batch -source V:\list_test_boards.tcl -log V:\spacewire-new-board-inventory.log -journal V:\spacewire-new-board-inventory.jou
+# Log file           : V:/spacewire-new-board-inventory.log
+# Journal file       : V:\spacewire-new-board-inventory.jou
+# Running On         : RXBERCWO970
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i5-1235U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 51222 MB
+# Swap memory        : 3221 MB
+# Total Virtual      : 54444 MB
+# Available Virtual  : 15929 MB
+#-----------------------------------------------------------
+source {V:\list_test_boards.tcl}
+# open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 537.328 ; gain = 225.934
+# connect_hw_server -url localhost:3121
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.2
+  **** Build date : Oct 28 2025 at 10:03:13
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.2.0
+  ****** Build date   : Nov 14 2025-00:16:52
+    **** Build number : 2025.2.1763075812
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:07 . Memory (MB): peak = 542.277 ; gain = 4.949
+# foreach target [get_hw_targets -quiet] {
+#     puts "BOARD_TARGET: $target"
+#     current_hw_target $target
+#     open_hw_target
+#     foreach device [get_hw_devices -quiet] {
+#         puts "BOARD_DEVICE: $device PART=[get_property PART $device]"
+#     }
+#     close_hw_target
+# }
+BOARD_TARGET: localhost:3121/xilinx_tcf/Digilent/210299BBA502
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210299BBA502
+BOARD_DEVICE: xczu7_0 PART=xczu7
+BOARD_DEVICE: arm_dap_1 PART=arm_dap
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Digilent/210299BBA502
+# disconnect_hw_server
+# close_hw_manager
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 15 16:19:53 2026...

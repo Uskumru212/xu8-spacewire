@@ -1,0 +1,15 @@
+{
+  "jtag_serial": "210299BBA502",
+  "result": "unstable_link",
+  "bitstream_sha256": "741C3A356BBFBB95B15EDEFD026CAB8DF4213BF69C3CE18C8A032F80C07EEA97",
+  "payload_enabled": false,
+  "tx_characters": 0,
+  "falling_run_trigger_captured": true,
+  "trigger_wait_ms": 2346,
+  "trigger_sample": 512,
+  "status_sample_510": "0004",
+  "status_sample_511": "0024",
+  "status_sample_512": "0000",
+  "interpretation": "Parity error asserted one captured sample before Run fell",
+  "root_cause": "Not established"
+}

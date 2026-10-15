@@ -4,6 +4,8 @@ Single-port SpaceWire endpoint for Enclustra Mercury+ XU8 **ME-XU8-7EV-2I-D12E, 
 
 ## Status
 
+Latest replacement-XU8 attempt: the same bitstream loaded successfully, but the link was unstable. ILA captured a parity-error assertion immediately before Run fell; the finite test did not enable its payload. Original logs, captures and executed scripts are archived in the [replacement-board test report](reports/2026-10-15/replacement-xu8-210299BBA502/README.md). The passing results below belong to the previous XU8.
+
 A complete generic SpaceWire Light protocol core is integrated with streaming FIFOs, diagnostics and a deterministic packet source. Nine license-free GHDL simulation scenarios passed on 2026-10-14. Generic endpoint synthesis also passed in GHDL. These are functional checks, not FPGA timing closure or physical link certification.
 
 The board integration includes differential I/O buffers, active-high 3.3 V / 5 V enables, 100-to-400 MHz clock generation, VIO controls, ILA probes and optional PS UART0 telemetry. On 2026-10-15, the standalone SpaceWire variant (PS/UART disabled) completed routing at 400 MHz and was programmed over Digilent JTAG. It uses the Enclustra clock input standard and an independent DCI startup sequence. Setup slack is +0.239 ns and hold slack is +0.003 ns; there are no unconstrained internal endpoints. Hardware ILA/VIO communication works, and link start/autostart is enabled with test payload disabled. **After reloading following a user-confirmed power cycle/reset, Run=1 remained asserted throughout a 30-second observation, and an ILA capture was saved. End-to-end packet delivery and throughput remain untested.** See `docs/validation.md`.

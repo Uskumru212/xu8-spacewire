@@ -1,0 +1,140 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Oct 15 16:22:26 2026
+# Process ID         : 31420
+# Current directory  : C:/Users/ErdemErbil/.codex/visualizations/2026/10/15/01a13e86-fcf8-7bf2-9388-11702a845d81/xu8-build
+# Command line       : vivado.exe -mode batch -source V:\diagnose_replacement_xu8.tcl -log V:\spacewire-replacement-diagnostic.log -journal V:\spacewire-replacement-diagnostic.jou
+# Log file           : V:/spacewire-replacement-diagnostic.log
+# Journal file       : V:\spacewire-replacement-diagnostic.jou
+# Running On         : RXBERCWO970
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i5-1235U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 51222 MB
+# Swap memory        : 3221 MB
+# Total Virtual      : 54444 MB
+# Available Virtual  : 15854 MB
+#-----------------------------------------------------------
+source {V:\diagnose_replacement_xu8.tcl}
+# set build [file normalize $::env(SPW_BUILD_DIR)]
+# set bit [file join $build spacewire.bit]
+# set probes [file join $build spacewire.ltx]
+# if {![file exists $bit] || ![file exists $probes]} {error "Run finish_spacewire.tcl first"}
+# if {![info exists ::env(SPW_JTAG_SERIAL)]} {error "Set SPW_JTAG_SERIAL to the detected cable serial"}
+# open_hw_manager
+open_hw_manager: Time (s): cpu = 00:00:13 ; elapsed = 00:00:10 . Memory (MB): peak = 531.703 ; gain = 223.270
+# connect_hw_server -url localhost:3121
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2025.2
+  **** Build date : Oct 28 2025 at 10:03:13
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2025.2.0
+  ****** Build date   : Nov 14 2025-00:16:52
+    **** Build number : 2025.2.1763075812
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:10 . Memory (MB): peak = 536.629 ; gain = 4.926
+# set targets [get_hw_targets -quiet *$::env(SPW_JTAG_SERIAL)]
+# if {[llength $targets] != 1} {error "Expected exactly one authorized JTAG target: $targets"}
+# current_hw_target $targets
+# set_property PARAM.FREQUENCY 5000000 [current_hw_target]
+# open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210299BBA502
+# set device [get_hw_devices -quiet -filter {PART =~ xczu7*}]
+# if {[llength $device] != 1} {error "Expected one XCZU7 target: $device"}
+# current_hw_device $device
+# set_property PROGRAM.FILE $bit $device
+# set_property PROBES.FILE $probes $device
+# if {![info exists ::env(SPW_REUSE_PROGRAMMED)] || !$::env(SPW_REUSE_PROGRAMMED)} {
+#     program_hw_devices $device
+# }
+# refresh_hw_device $device
+INFO: [Labtools 27-2302] Device xczu7 (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
+INFO: [Labtools 27-2302] Device xczu7 (JTAG device index = 0) is programmed with a design that has 1 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+# set vio [get_hw_vios -of_objects $device]
+# if {[llength $vio] != 1} {error "Expected exactly one SpaceWire VIO: $vio"}
+# set control [get_hw_probes -of_objects $vio -filter {NAME =~ *control*}]
+# set status [get_hw_probes -of_objects $vio -filter {NAME =~ *status*}]
+# if {[llength $control] != 1 || [llength $status] != 1} {error "Unexpected VIO interface"}
+# set_property OUTPUT_VALUE 010C $control
+# commit_hw_vio $vio
+# for {set n 0} {$n < 30} {incr n} {
+#     after 1000
+#     refresh_hw_vio $vio
+#     puts "SPACEWIRE_STATUS: [get_property INPUT_VALUE $status] CONTROL: [get_property OUTPUT_VALUE $control]"
+# }
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0001 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+SPACEWIRE_STATUS: 0000 CONTROL: 010C
+# set ila [get_hw_ilas -of_objects $device]
+# if {[llength $ila] != 1} {error "Expected one ILA"}
+# reset_hw_ila -reset_compare_values true $ila
+# set_property CONTROL.DATA_DEPTH 1024 $ila
+# set_property CONTROL.TRIGGER_POSITION 0 $ila
+# for {set n 0} {$n < 4} {incr n} {
+#     run_hw_ila -trigger_now $ila
+#     wait_on_hw_ila -timeout 0.25 $ila
+#     set data [upload_hw_ila_data $ila]
+#     write_hw_ila_data -force -csv_file [file join $build reports replacement_210299BBA502 link_diagnostic_${n}.csv] $data
+#     after 100
+# }
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Oct-15 16:23:25
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Oct-15 16:23:25
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Oct-15 16:23:26
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Oct-15 16:23:26
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Oct-15 16:23:26
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Oct-15 16:23:26
+INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Oct-15 16:23:26
+INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Oct-15 16:23:26
+# close_hw_target
+INFO: [Labtoolstcl 44-464] Closing hw_target localhost:3121/xilinx_tcf/Digilent/210299BBA502
+# disconnect_hw_server
+# close_hw_manager
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 15 16:23:27 2026...

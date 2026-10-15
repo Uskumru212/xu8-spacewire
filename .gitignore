@@ -2,6 +2,8 @@
 .Xil/
 *.jou
 *.log
+# Intentionally retained hardware-test evidence; other generated logs stay ignored.
+!reports/2026-10-15/replacement-xu8-210299BBA502/logs/*.log
 *.str
 *.pb
 *.wdb
