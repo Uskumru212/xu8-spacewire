@@ -1,5 +1,29 @@
 # XU8 R3 clock investigation (2026-10-14)
 
+## Standalone SpaceWire implementation decision (2026-10-15)
+
+The standalone runtime constraints now adopt the manufacturer's clock input
+configuration directly: Enclustra reference commit
+`10271e532b01b0304ce2f3a051721485dc38a47a`, lines 282-284, assigns
+DIFF_SSTL12_DCI to the onboard clock on AH6/AJ6. DIFF_TERM_ADV is not assigned
+to these pins because that property is unsupported for this standard.
+Bank-66 SpaceWire LVDS input termination remains TERM_100.
+
+AMD UG571 requires DCIRESET for bank-65 multifunction pins using DCI.
+The runtime enables STARTUPE3/CFGMCLK-based startup reset sequencing, independent
+of the bank-65 oscillator: wait for synchronized EOS, hold reset for another
+127 configuration-clock cycles, release DCIRESET, wait for DCI LOCKED, then
+release Clock Wizard reset. The endpoint remains reset until PLL lock and
+synchronized reset release. CFGMCLK startup logic is conservatively constrained
+at 200 MHz; this is a timing bound, not a claim about its physical frequency.
+
+The original candidate project remains available with its disabled XDC. The
+standalone build uses `xu8_spacewire_runtime.xdc` and disables PS/UART telemetry.
+Historical uncertainty notes below predate this manufacturer-reference-based
+implementation. Hardware link evidence is recorded separately in validation.md.
+
+Source: [AMD UG571, DCIRESET and special DCI requirements](https://docs.amd.com/api/khub/documents/kFbaUC5HGcXyGNauhgU6Gw/content).
+
 ## Clock-source clarification (2026-10-15)
 
 The SOM already contains the clock sources; no external carrier oscillator is

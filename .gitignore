@@ -11,6 +11,7 @@
 *.dcp
 *.ltx
 *.xsa
+dfx_runtime.txt
 *.cache/
 *.gen/
 *.hw/

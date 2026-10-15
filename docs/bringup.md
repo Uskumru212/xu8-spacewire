@@ -1,6 +1,6 @@
 # Board bring-up and diagnostics
 
-This procedure is prepared for future hardware work. No bitstream or physical test has been completed.
+The standalone SpaceWire variant was routed and loaded through JTAG on 2026-10-15. With VIO start/autostart enabled, Run=1 remained asserted throughout a 30-second observation and an ILA capture was saved. Packet delivery and throughput remain unverified. See [validation.md](validation.md) for current results. The checklist below also applies to future rebuilds.
 
 ## Before implementation
 
@@ -80,4 +80,4 @@ Start with traffic disabled, confirm rail voltages and oscillator, then observe 
 
 ## SOM UART log
 
-The candidate board now includes PS UART0 telemetry and a standalone OCM application. See [UART setup and limits](uart.md). No physical analyzer or UART connection has been made.
+The optional board variant includes PS UART0 telemetry and a standalone OCM application. See [UART setup and limits](uart.md). UART is disabled in the current standalone SpaceWire build; the UART target application has not been run. JTAG VIO access has been verified.

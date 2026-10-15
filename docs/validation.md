@@ -1,6 +1,20 @@
 # Validation report
 
-Date: 2026-10-14. No physical FPGA was programmed.
+The initial sections record 2026-10-14 results. The latest hardware results follow; earlier limitations describe the state at their respective dates.
+
+## Standalone SpaceWire hardware startup (2026-10-15)
+
+Latest retry: the user confirmed an intervening power cycle/reset. After reprogramming, all twenty initial VIO samples and six subsequent samples at five-second intervals reported status 0x0004 (Run=1), control 0x010C. An ILA capture was saved to V:/spacewire-only/reports/physical_retry.csv. This establishes observed physical link initialization; test payload remains disabled, and packet delivery/throughput is not yet tested. See V:/spacewire-retry-monitor.log. The disconnected-peer observations below describe the earlier attempts.
+
+At the user's request, UART/PS telemetry is disabled. Vivado 2025.2 built the standalone variant for xczu7ev-fbvb900-2-i with ENABLE_UART_TELEMETRY=false and ENABLE_DCI_STARTUP=true. The runtime XDC uses Enclustra's reference DIFF_SSTL12_DCI clock standard, STARTUPE3/DCIRESET calibration sequencing, and the confirmed carrier pin/voltage assignments. See clock-investigation.md for the clock decision.
+
+Routed implementation passed: setup slack +0.239 ns, hold slack +0.003 ns, pulse-width slack +0.708 ns, and a 400 MHz core clock. There are zero no-clock pins and zero unconstrained internal endpoints. Only the asynchronous receiver first-stage D pins are false-pathed; later synchronizer stages are timed and ASYNC_REG is verified. DRC has no errors or critical warnings; four warnings remain inside generated debug IP. CDC has informational synchronizers and four clock-enable warnings inside the generated debug-hub FIFO. Bus-skew constraints passed. The two asynchronous encoded TX outputs have no external output-delay constraint; these results do not certify external signal skew or analog operation.
+
+Artifacts are V:/spacewire-only/spacewire.bit and spacewire.ltx, with reports under V:/spacewire-only/reports. scripts/build_spacewire.tcl performs synthesis/routing, scripts/finish_spacewire.tcl checks the implementation and exports artifacts, and scripts/start_spacewire.tcl programs the explicitly selected JTAG serial and enables VIO control 0x010C. Open-Vivado.cmd now selects this standalone project.
+
+The XCZU7 target on Digilent cable 210299BFE26A was programmed successfully, and ILA/VIO cores were discovered. Twenty VIO samples showed control 0x010C and status 0x0000/0x0001 (idle/started), without Run. Start and autostart are enabled, the configured Run target is 200 Mbit/s, and test payload generation is off. The user confirmed that the remote endpoint is disconnected or powered off. Physical link establishment, packet exchange and sustained 200 Mbit/s operation remain unverified.
+
+Programming is volatile JTAG configuration; boot media was not modified. A later read-only ILA capture attempt found DONE=0 and no debug cores, so no capture was obtained from that attempt. The startup script was rerun successfully: startup status HIGH, ILA/VIO detected, and twenty more status samples confirmed idle/started with control 0x010C. The reason for the intervening configuration loss was not established. Do not infer that the design survives power cycling.
 
 ## Executed checks
 

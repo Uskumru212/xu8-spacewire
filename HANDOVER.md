@@ -1,5 +1,21 @@
 # Continuation handover
 
+## Latest local hardware state (2026-10-15)
+
+LATEST RETRY: user confirmed a power cycle/reset. Reprogramming succeeded and all twenty initial status samples were 0x0004 (Run=1), with control 0x010C. Physical link initialization is now observed. Test payload is still off; packet delivery and throughput remain untested. Monitor/capture log: V:/spacewire-retry-monitor.log. The disconnected-peer state below is historical.
+
+The user stopped UART application work and requested SpaceWire-only startup.
+Vivado 2025.2 built and routed the standalone variant in `V:/spacewire-only`
+with ENABLE_UART_TELEMETRY=false and ENABLE_DCI_STARTUP=true. The Digilent JTAG
+cable and XCZU7 target were detected, a bitstream was loaded into volatile PL
+configuration, and ILA/VIO cores are accessible. VIO control is 0x010C (link
+start/autostart on, Run divider 1 / nominal 200 Mbit/s, test payload off).
+Observed status alternates 0x0000/0x0001; Run was not observed. The user confirmed
+that the remote endpoint is disconnected or powered off. Do not treat this as
+an established physical link or tested packet exchange. Routing passed with
+setup +0.239 ns and hold +0.003 ns; see docs/validation.md. Boot media was not
+modified. UART ELF work remains incomplete and is outside the current request.
+
 ## Goal and communication
 
 Build and validate a 200 Mbit/s SpaceWire link on Enclustra Mercury+ XU8 ME-XU8-7EV-2I-D12E R3, with no DDR I/O, connected to an unspecified external SpaceWire device. Communicate with the user in Turkish; keep all repository files/comments/commits in English.

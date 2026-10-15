@@ -6,7 +6,7 @@ Single-port SpaceWire endpoint for Enclustra Mercury+ XU8 **ME-XU8-7EV-2I-D12E, 
 
 A complete generic SpaceWire Light protocol core is integrated with streaming FIFOs, diagnostics and a deterministic packet source. Nine license-free GHDL simulation scenarios passed on 2026-10-14. Generic endpoint synthesis also passed in GHDL. These are functional checks, not FPGA timing closure or physical link certification.
 
-The board integration candidate includes differential I/O buffers, active-high 3.3 V / 5 V enables, a 100-to-400 MHz clock IP interface, VIO controls, ILA probes and a PS UART0 telemetry integration recipe. On a Vivado 2025.2 workstation, the PS/SmartConnect block design validated, a software-only XSA was exported, and board-top synthesis passed with the candidate XDC disabled. Implementation, timing closure, electrical sign-off and hardware testing remain unverified. **No usable bitstream has been produced or loaded.**
+The board integration includes differential I/O buffers, active-high 3.3 V / 5 V enables, 100-to-400 MHz clock generation, VIO controls, ILA probes and optional PS UART0 telemetry. On 2026-10-15, the standalone SpaceWire variant (PS/UART disabled) completed routing at 400 MHz and was programmed over Digilent JTAG. It uses the Enclustra clock input standard and an independent DCI startup sequence. Setup slack is +0.239 ns and hold slack is +0.003 ns; there are no unconstrained internal endpoints. Hardware ILA/VIO communication works, and link start/autostart is enabled with test payload disabled. **After reloading following a user-confirmed power cycle/reset, Run=1 remained asserted throughout a 30-second observation, and an ILA capture was saved. End-to-end packet delivery and throughput remain untested.** See `docs/validation.md`.
 
 ## Architecture
 
@@ -40,9 +40,9 @@ Target part: `xczu7ev-fbvb900-2-i`. The original workstation had Vivado 2026.1 l
 
 ```powershell
 # Choose ONE, in a fresh build/vivado directory:
-& 'C:\AMDDesignTools\2026.1\Vivado\bin\vivado.bat' -mode batch -source scripts/create_project.tcl
+& 'C:\AMDDesignTools\2025.2\Vivado\bin\vivado.bat' -mode batch -source scripts/create_project.tcl
 # OR: include candidate board top and generated clock/debug IP:
-& 'C:\AMDDesignTools\2026.1\Vivado\bin\vivado.bat' -mode batch -source scripts/create_board_project.tcl
+& 'C:\AMDDesignTools\2025.2\Vivado\bin\vivado.bat' -mode batch -source scripts/create_board_project.tcl
 ```
 
 Both target `build/vivado/xu8_spacewire.xpr`; they do not overwrite an existing project. The first is a protocol development project. The second includes a **disabled candidate XDC**, because the R3 clock input electrical standard and SpaceWire I/O standard sign-off remain pending. `scripts/check_board_integration.tcl` validates integration and structural synthesis; it exports no bitstream and does not launch implementation or programming. See `docs/validation.md` for actual results and limits.

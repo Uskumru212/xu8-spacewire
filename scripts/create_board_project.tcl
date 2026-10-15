@@ -1,14 +1,24 @@
 # Candidate integration project. Requires a valid Vivado license.
 # IP generation and structural synthesis were validated with Vivado 2025.2.
-# Device implementation and timing closure have NOT been executed.
+# Standalone implementation results are recorded in docs/validation.md.
 source [file join [file dirname [info script]] create_project.tcl]
-add_files [list [file join $root rtl spw_telemetry_axi.vhd]]
-# Vivado module references reject a VHDL-2008 top; this unit is VHDL-93 compatible.
-set_property file_type VHDL [get_files spw_telemetry_axi.vhd]
-source [file join $root scripts create_telemetry_bd.tcl]
+set enable_uart 1
+if {[info exists ::env(SPW_ENABLE_UART_TELEMETRY)]} {
+    set enable_uart $::env(SPW_ENABLE_UART_TELEMETRY)
+    if {$enable_uart ni {0 1}} {error "SPW_ENABLE_UART_TELEMETRY must be 0 or 1"}
+}
+if {$enable_uart} {
+    add_files [list [file join $root rtl spw_telemetry_axi.vhd]]
+    # Vivado module references reject a VHDL-2008 top; this unit is VHDL-93 compatible.
+    set_property file_type VHDL [get_files spw_telemetry_axi.vhd]
+    source [file join $root scripts create_telemetry_bd.tcl]
+}
 add_files [list [file join $root rtl xu8_spacewire_top.vhd]]
 set_property file_type {VHDL 2008} [get_files xu8_spacewire_top.vhd]
 set_property top xu8_spacewire_top [get_filesets sources_1]
+if {!$enable_uart} {
+    set_property generic {ENABLE_UART_TELEMETRY=false} [get_filesets sources_1]
+}
 create_ip -name clk_wiz -vendor xilinx.com -library ip -version 6.0 -module_name spw_clock
 set_property -dict [list CONFIG.PRIM_IN_FREQ {100.000} \
     CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} \
