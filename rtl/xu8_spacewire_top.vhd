@@ -7,7 +7,9 @@ use ieee.numeric_std.all;
 -- loaded through JTAG on 2026-10-15; physical Run was observed, packets untested.
 entity xu8_spacewire_top is
     generic(ENABLE_UART_TELEMETRY: boolean := true;
-            ENABLE_DCI_STARTUP: boolean := false);
+            ENABLE_DCI_STARTUP: boolean := false;
+            TEST_PACKET_BYTES: positive := 256;
+            TEST_ONE_SHOT: boolean := false);
     port(clk100_p, clk100_n: in std_logic;
          spw_din_p, spw_din_n, spw_sin_p, spw_sin_n: in std_logic;
          spw_dout_p, spw_dout_n, spw_sout_p, spw_sout_n: out std_logic;
@@ -101,6 +103,7 @@ begin
     reset <= reset_pipe(3) or control(0);
     controls: spw_vio port map(clk,status,control);
     source: entity work.spw_test_source
+        generic map(PACKET_BYTES=>TEST_PACKET_BYTES,ONE_SHOT=>TEST_ONE_SHOT)
         port map(clk,reset,status(2),control(4),tx_ready,tx_valid,tx_flag,tx_data);
     endpoint: entity work.spw_endpoint
         generic map(CLOCK_HZ=>400.0e6,FIFO_BITS=>8)

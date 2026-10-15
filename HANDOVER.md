@@ -2,6 +2,8 @@
 
 ## Latest local hardware state (2026-10-15)
 
+CURRENT WORK: finite 10,000-payload-bit mode implemented as TEST_PACKET_BYTES=1250 / TEST_ONE_SHOT=true, selected by SPW_TEST_10KBIT=1. All ten GHDL scenarios passed (logs V:/ghdl-10kbit-regression). New implementation is in V:/spacewire-10kbit; physical packet test has not yet run. After routing and finish_spacewire.tcl gates, use scripts/test_10kbit.tcl with SPW_BUILD_DIR set to that directory and SPW_JTAG_SERIAL=210299BFE26A. The peer's echo setting is unknown. Do not infer delivery from local TX FIFO counters. Existing idle-link tests include 121 seconds with zero error/reentry counters, 10,000 sampled Run records across separate windows, and 120.963 seconds with no falling Run trigger. scripts/monitor_disconnect.tcl leaves the ILA armed. See docs/validation.md.
+
 LATEST RETRY: user confirmed a power cycle/reset. Reprogramming succeeded and all twenty initial status samples were 0x0004 (Run=1), with control 0x010C. Physical link initialization is now observed. Test payload is still off; packet delivery and throughput remain untested. Monitor/capture log: V:/spacewire-retry-monitor.log. The disconnected-peer state below is historical.
 
 The user stopped UART application work and requested SpaceWire-only startup.

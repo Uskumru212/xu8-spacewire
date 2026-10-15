@@ -10,6 +10,8 @@ The board integration includes differential I/O buffers, active-high 3.3 V / 5 V
 
 ## Architecture
 
+The test source now supports configurable packet length and a one-shot mode. Building with `SPW_TEST_10KBIT=1` selects exactly 1,250 payload bytes (10,000 payload bits), then one EOP. `scripts/test_10kbit.tcl` runs the finite test with falling-Run ILA triggering; `scripts/monitor_disconnect.tcl` can monitor link drops independently. Ten GHDL scenarios passed with the new source, including exact length, backpressure, one-shot rearming and no automatic retry after link loss. The new physical payload test is pending; the idle-link results above do not establish packet delivery.
+
 `onboard 100 MHz -> clock IP -> 400 MHz rising-edge logic`
 
 `LVDS D/S inputs -> generic sampled receiver -> SpaceWire link/FIFOs -> streaming interface`

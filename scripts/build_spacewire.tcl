@@ -9,7 +9,11 @@ if {[file exists $project_file]} {
     source [file join [file dirname [info script]] create_board_project.tcl]
     add_files -fileset constrs_1 [list [file join $root constraints xu8_spacewire_runtime.xdc]]
 }
-set_property generic {ENABLE_UART_TELEMETRY=false ENABLE_DCI_STARTUP=true} [get_filesets sources_1]
+set generics {ENABLE_UART_TELEMETRY=false ENABLE_DCI_STARTUP=true}
+if {[info exists ::env(SPW_TEST_10KBIT)] && $::env(SPW_TEST_10KBIT) eq "1"} {
+    append generics " TEST_PACKET_BYTES=1250 TEST_ONE_SHOT=true"
+}
+set_property generic $generics [get_filesets sources_1]
 update_compile_order -fileset sources_1
 set reports [file join $::env(SPW_BUILD_DIR) reports]
 file mkdir $reports

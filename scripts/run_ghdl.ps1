@@ -21,11 +21,11 @@ try {
         ForEach-Object { Join-Path $root "vendor/spacewire_light/rtl/$_.vhd" }
     $files += @('rtl/spw_telemetry_axi.vhd','rtl/spw_endpoint.vhd','rtl/spw_test_source.vhd','rtl/xu8_spacewire_top.vhd',
         'vendor/spacewire_light/bench/spwlink_tb.vhd','sim/tb_protocol_200.vhd',
-        'sim/tb_endpoint.vhd','sim/tb_test_source.vhd','sim/tb_telemetry.vhd') | ForEach-Object { Join-Path $root $_ }
+        'sim/tb_endpoint.vhd','sim/tb_test_source.vhd','sim/tb_source_10kbit.vhd','sim/tb_telemetry.vhd') | ForEach-Object { Join-Path $root $_ }
     $null = Invoke-Ghdl (@('-a','--std=08','-frelaxed-rules') + $files) 'analysis.log'
-    foreach ($test in @('spwlink_tb','tb_protocol_200','tb_test_source','tb_telemetry')) {
+    foreach ($test in @('spwlink_tb','tb_protocol_200','tb_test_source','tb_source_10kbit','tb_telemetry')) {
         $result = Invoke-Ghdl @('-r','--std=08','-frelaxed-rules',$test,'--assert-level=error','--ieee-asserts=disable-at-0','--stop-time=2ms') "$test.log"
-        $marker = if ($test -in @('tb_test_source','tb_telemetry')) { 'TEST_PASS' } else { 'Done\.' }
+        $marker = if ($test -in @('tb_test_source','tb_source_10kbit','tb_telemetry')) { 'TEST_PASS' } else { 'Done\.' }
         $expected = if ($test -eq 'tb_protocol_200') { 2 } else { 1 }
         if ([regex]::Matches($result,$marker).Count -ne $expected) { throw "Missing completion markers: $test" }
         Write-Host "PASS $test"
@@ -36,5 +36,5 @@ try {
         if ($result -notmatch 'TEST_PASS') { throw "Missing completion marker: $name" }
         Write-Host "PASS $name"
     }
-    Write-Host 'REGRESSION_PASS: 9 completed scenarios; board top analyzed, not implemented.'
+    Write-Host 'REGRESSION_PASS: 10 completed scenarios; this regression analyzes but does not implement the board top.'
 } finally { Pop-Location }
