@@ -86,7 +86,7 @@ try {
     commit_hw_vio $vio
 }
 set duration [expr {[clock milliseconds] - $start_ms}]
-if {!$captured} {stop_hw_ila $ila}
+# The immediate snapshot replaces the pending trigger after the test interval.
 snapshot $ila [file join $build reports payload_end.csv]
 arm_falling_run $ila $status_probe
 puts "TEST_10KBIT_RESULT: duration_ms=$duration disconnect_capture=$captured payload_disabled=1"

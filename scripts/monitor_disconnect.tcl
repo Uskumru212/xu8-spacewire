@@ -1,5 +1,6 @@
 # Arm the existing ILA on falling Run (status bit 2). No reprogramming/reset.
-# Requires SPW_BUILD_DIR and SPW_JTAG_SERIAL. Leaves the ILA armed on timeout.
+# Requires SPW_BUILD_DIR and SPW_JTAG_SERIAL. Does not explicitly stop on timeout;
+# arming persistence after closing/reconnecting the debug session is unverified.
 set build [file normalize $::env(SPW_BUILD_DIR)]
 open_hw_manager
 connect_hw_server -url localhost:3121
