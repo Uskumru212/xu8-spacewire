@@ -22,7 +22,8 @@ if {[llength $status_probe] != 1} {error "Expected one ILA status probe"}
 set_property CONTROL.DATA_DEPTH 1024 $ila
 set_property CONTROL.TRIGGER_POSITION 512 $ila
 set_property CONTROL.TRIGGER_CONDITION AND $ila
-# Bits 15..3 and 1..0 ignored; F denotes a falling edge on bit 2.
+# Binary radix ('b): F is a one-bit falling-edge symbol, not hex 0xF.
+# Pattern: 13 don't-care bits (15..3), F on running (2), X on bits 1..0.
 set_property TRIGGER_COMPARE_VALUE {eq16'bXXXXXXXXXXXXXFXX} $status_probe
 puts "DISCONNECT_TRIGGER: [get_property TRIGGER_COMPARE_VALUE $status_probe]"
 run_hw_ila $ila

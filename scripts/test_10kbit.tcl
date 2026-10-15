@@ -57,6 +57,8 @@ proc arm_falling_run {ila status_probe} {
     set_property CONTROL.DATA_DEPTH 1024 $ila
     set_property CONTROL.TRIGGER_POSITION 512 $ila
     set_property CONTROL.TRIGGER_CONDITION AND $ila
+    # Binary radix ('b): 13 X bits, falling running (bit 2), then two X bits.
+    # F is the edge symbol for one bit; it is not hexadecimal 0xF.
     set_property TRIGGER_COMPARE_VALUE {eq16'bXXXXXXXXXXXXXFXX} $status_probe
     run_hw_ila $ila
     puts "TEST_10KBIT_TRIGGER: [get_property TRIGGER_COMPARE_VALUE $status_probe]"
