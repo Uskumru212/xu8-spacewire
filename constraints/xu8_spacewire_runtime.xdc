@@ -1,4 +1,6 @@
 # Standalone SpaceWire bring-up on the user-confirmed custom carrier.
+# Disable internal pulls on unused user I/O in the generated bitstream.
+set_property BITSTREAM.CONFIG.UNUSEDPIN PULLNONE [current_design]
 # Clock input follows Enclustra Mercury_XU8_PE3 reference commit
 # 10271e532b01b0304ce2f3a051721485dc38a47a, lines 282-284.
 set_property -dict {PACKAGE_PIN AC8 IOSTANDARD LVDS} [get_ports spw_din_p]
