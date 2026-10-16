@@ -1,5 +1,19 @@
 # Continuation handover
 
+## Latest named setup test (2026-10-16)
+
+Test Setup 1: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM1_10Ω", attempt-002, used
+JTAG cable 210299BFE26A and the PULLNONE bitstream. The finite 10Kbit test
+completed with exit 0: 120.844 s, eight Run=1 status readings, no falling-Run
+capture, TX FIFO acceptances 1251 including one EOP, RX zero, and zero error
+or Run-reentry counter deltas. This is a local-submission/link observation
+pass; remote receipt/integrity and throughput remain unverified. Payload
+generation is off (0x010C). Portable evidence and metadata are under
+reports/2026-10-16/test-setup-1-em-vnir-em-harness-fm-pdh03-som1-10ohm/attempt-002/README.md.
+Attempt-001 and its original runtime files were explicitly deleted at the user's
+request. Attempt-002 is a fresh run under the final name. Other board records
+were preserved. Use a new attempt number for further repeats.
+
 ## Latest local hardware state (2026-10-15)
 
 PORTABLE EVIDENCE: reports/2026-10-15/replacement-xu8-210299BBA502/README.md links the latest attempt's original logs, CSV captures, executed Tcl scripts and checksum manifest. Use this archive when continuing on another machine; the V: paths below are workstation-local.
