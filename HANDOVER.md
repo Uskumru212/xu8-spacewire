@@ -1,5 +1,22 @@
 # Continuation handover
 
+## Latest named setup test — Setup 3 at 200 Mbit/s (2026-10-16)
+
+Test Setup 3: "EM.VNIR_EM.Harness_ FM.PDH.03.200M_SOM1_0Ω", attempt-002,
+completed with exit 0. Local nominal TX rate was explicitly reset and verified:
+divider 1, control 0x010C, configured 400 MHz core clock. Observation 120.542 s:
+eight Run=1 readings, no falling-Run capture, 1251 TX FIFO acceptances including
+one EOP, RX zero, and zero error/Run-reentry deltas. Local checks passed; remote
+delivery, integrity, wire speed and sustained throughput remain unverified.
+Payload generation is off (0x010C). Cable 210299BFE26A, PULLNONE bitstream
+SHA-256 741C3A356BBFBB95B15EDEFD026CAB8DF4213BF69C3CE18C8A032F80C07EEA97.
+Evidence:
+reports/2026-10-16/test-setup-3-em-vnir-em-harness-fm-pdh03-200m-som1-0ohm/attempt-002/README.md.
+The original 100 Mbit/s attempt-001 was interrupted for the user's rate correction
+and retained separately, without final counters or a completed verdict.
+Setup 1 and 2 records were preserved. Setup 3 raw evidence hashes were verified before archival.
+
+
 ## Latest named setup test (2026-10-16)
 
 Test Setup 2: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM2_10Ω", attempt-001, used

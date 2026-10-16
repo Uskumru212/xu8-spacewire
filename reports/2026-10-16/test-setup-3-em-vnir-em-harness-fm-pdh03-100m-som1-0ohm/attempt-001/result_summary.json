@@ -1,0 +1,15 @@
+{
+  "setup_id": 3,
+  "attempt": "attempt-001",
+  "local_tx_nominal_mbps": 100,
+  "result": "interrupted_for_user_rate_correction",
+  "replacement_rate_mbps": 200,
+  "replacement_attempt": "attempt-002",
+  "last_observed_elapsed_ms": 105689,
+  "status_readings": 7,
+  "payload_was_enabled": true,
+  "final_counter_snapshot_available": false,
+  "final_tx_count": null,
+  "remote_delivery_verified": false,
+  "note": "Process stopped to apply the user-requested 200 Mbit/s setting. Partial 100 Mbit/s data is not a completed test and is not attributed to the 200 Mbit/s run."
+}

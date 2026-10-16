@@ -1,0 +1,5 @@
+*.log -text
+*.jou -text
+*.csv -text
+*.tcl -text
+*.json -text

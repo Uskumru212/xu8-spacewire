@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Fri Oct 16 12:02:37 2026
+# Process ID         : 6576
+# Current directory  : C:/Users/ErdemErbil/OneDrive - REFLEX Aerospace GmbH/Documents/ChatGPT/spw issue/xu8-spacewire
+# Command line       : vivado.exe -mode batch -source V:\test-sessions\2026-10-16\test-setup-3-em-vnir-em-harness-fm-pdh03-100m-som1-0ohm\attempt-001\run_test.tcl -log V:\test-sessions\2026-10-16\test-setup-3-em-vnir-em-harness-fm-pdh03-100m-som1-0ohm\attempt-001\vivado_test.log -journal V:\test-sessions\2026-10-16\test-setup-3-em-vnir-em-harness-fm-pdh03-100m-som1-0ohm\attempt-001\vivado_test.jou
+# Log file           : V:/test-sessions/2026-10-16/test-setup-3-em-vnir-em-harness-fm-pdh03-100m-som1-0ohm/attempt-001/vivado_test.log
+# Journal file       : V:\test-sessions\2026-10-16\test-setup-3-em-vnir-em-harness-fm-pdh03-100m-som1-0ohm\attempt-001\vivado_test.jou
+# Running On         : RXBERCWO970
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i5-1235U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 51222 MB
+# Swap memory        : 3221 MB
+# Total Virtual      : 54444 MB
+# Available Virtual  : 38186 MB
+#-----------------------------------------------------------
+source {V:\test-sessions\2026-10-16\test-setup-3-em-vnir-em-harness-fm-pdh03-100m-som1-0ohm\attempt-001\run_test.tcl}
