@@ -2,6 +2,19 @@
 
 ## Latest named setup test (2026-10-16)
 
+Test Setup 2: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM2_10Ω", attempt-001, used
+JTAG cable 210299BFE26A and the same PULLNONE bitstream/procedure as Setup 1.
+The finite 10Kbit script completed with exit 0: 120.681 s, eight Run=1 status
+readings, no falling-Run capture, 1251 TX FIFO acceptances including one EOP,
+RX zero, and zero error/Run-reentry counter deltas. Local checks passed;
+remote receipt, payload integrity and throughput remain unverified. Packet
+generation is off (0x010C). Evidence:
+reports/2026-10-16/test-setup-2-em-vnir-em-harness-fm-pdh03-som2-10ohm/attempt-001/README.md.
+SOM2 is a user-provided setup label; the JTAG serial identifies the cable.
+Setup 1 and other board records were preserved.
+
+## Named setup 1 (2026-10-16)
+
 Test Setup 1: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM1_10Ω", attempt-002, used
 JTAG cable 210299BFE26A and the PULLNONE bitstream. The finite 10Kbit test
 completed with exit 0: 120.844 s, eight Run=1 status readings, no falling-Run
