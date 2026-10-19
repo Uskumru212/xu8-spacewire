@@ -1,5 +1,22 @@
 # Continuation handover
 
+## Latest named setup test — Setup 6 (2026-10-19)
+
+Test Setup 6: "EM.VNIR_EM.Harness_ FM.PDH.ARCBOX_Measboard", attempt-001,
+completed at nominal 200 Mbit/s with exit 0. Observation 121.382 s: eight
+Run=1 readings, no falling-Run capture, TX FIFO increase 1251 including one
+EOP, RX zero, and zero error/Run-reentry deltas. Local checks passed; remote
+receipt/integrity, wire speed and sustained throughput remain unverified.
+Payload generation is off; start/autostart remain enabled (0x010C).
+Current cable is 210299BFE5B4, enumerating xczu7. Previous cable 210299BFE26A
+was absent; that initial connection failure and target/device discovery logs
+are preserved. Same PULLNONE bitstream as Setup 5. No SOM/resistor/capacitor
+values were specified for Setup 6; do not inherit them from earlier setups.
+Evidence:
+reports/2026-10-19/test-setup-6-em-vnir-em-harness-fm-pdh-arcbox-measboard/attempt-001/README.md.
+Fifteen runtime evidence hashes verified; prior setup records preserved.
+
+
 ## Latest named setup test — Setup 5 (2026-10-19)
 
 Test Setup 5: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM2_10Ω+10pF_Measboard",
