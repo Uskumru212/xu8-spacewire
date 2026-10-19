@@ -1,5 +1,20 @@
 # Continuation handover
 
+## Latest named setup test — Setup 5 (2026-10-19)
+
+Test Setup 5: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM2_10Ω+10pF_Measboard",
+attempt-001, completed with exit 0. Nominal 200 Mbit/s, divider 1, control 0x010C
+verified after endpoint reset. Observation 121.147 s: eight Run=1 readings,
+no falling-Run capture, TX FIFO increase 1251 including one EOP, RX zero and
+zero error/Run-reentry deltas. Local checks passed; remote receipt/integrity,
+wire speed and sustained throughput remain unverified. Payload generation is
+off; link start/autostart remain on (0x010C). Cable 210299BFE26A, same PULLNONE
+bitstream as Setup 4. Setup labels/component values are user-provided.
+Evidence:
+reports/2026-10-19/test-setup-5-em-vnir-em-harness-fm-pdh03-som2-10ohm-10pf-measboard/attempt-001/README.md.
+Seven runtime evidence hashes verified. Previous setup records preserved.
+
+
 ## Latest named setup test — Setup 4 (2026-10-16)
 
 Test Setup 4: "EM.VNIR_EM.Harness_ FM.PDH.03_SOM2_10Ω+10pF", attempt-001,
