@@ -1,5 +1,19 @@
 # Continuation handover
 
+## Latest named setup attempt — Setup 7 (2026-10-19)
+
+Test Setup 7: "FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF", attempt-001.
+Cable 210299BBA502, xczu7. Programming succeeded and nominal 200 Mbit/s
+divider/control verified (0x010C after reset). Startup gate (600 polls,
+100 ms each plus debug overhead) did not observe Run; exit 1. Payload was
+not enabled and the two-minute falling-Run test did not start. No final
+counter/CSV data or completed test verdict. Brief Run episodes between
+polls cannot be excluded. Payload off, start/autostart still on (0x010C).
+Evidence:
+reports/2026-10-19/test-setup-7-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/attempt-001/README.md.
+Eight runtime evidence hashes verified; prior setup records preserved.
+
+
 ## Latest named setup test — Setup 6 (2026-10-19)
 
 Test Setup 6: "EM.VNIR_EM.Harness_ FM.PDH.ARCBOX_Measboard", attempt-001,
