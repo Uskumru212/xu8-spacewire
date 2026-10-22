@@ -1,0 +1,20 @@
+{
+  "setup_id": 7,
+  "setup_name": "FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF",
+  "attempt": "attempt-003",
+  "date": "2026-10-21",
+  "jtag_serial": "210299BBA502",
+  "fpga_part_reported": "xczu7",
+  "local_tx_nominal_mbps": 200,
+  "programming_succeeded": true,
+  "control_verified": "010C",
+  "result": "startup_debug_connection_failed",
+  "script_exit_code": 1,
+  "payload_enabled": false,
+  "observation_completed": false,
+  "falling_run_monitor_armed": false,
+  "final_counter_snapshot_available": false,
+  "remote_delivery_verified": false,
+  "throughput_measured": false,
+  "note": "VIO refresh stalled for 4m41s during startup, followed by Xicom 50-38 and hw_server failure. Nominal 60-second polling duration is not a wall-clock timeout on a blocked hardware API. No payload or completed link-stability result."
+}

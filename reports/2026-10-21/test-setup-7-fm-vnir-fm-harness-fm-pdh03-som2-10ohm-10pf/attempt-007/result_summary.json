@@ -1,0 +1,21 @@
+{
+  "setup_id": 7,
+  "setup_name": "FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF",
+  "attempt": "attempt-007",
+  "date": "2026-10-21",
+  "jtag_serial": "210299BBA502",
+  "fpga_part_reported": "xczu7",
+  "local_tx_nominal_mbps": 200,
+  "programming_succeeded": true,
+  "control_verified": "010C",
+  "result": "ila_clock_stopped_before_payload",
+  "script_exit_code": 1,
+  "payload_enabled": false,
+  "observation_completed": false,
+  "falling_run_monitor_armed": false,
+  "final_counter_snapshot_available": false,
+  "run_stability_verified": false,
+  "remote_delivery_verified": false,
+  "throughput_measured": false,
+  "note": "Labtools 27-3428: ILA core clock stopped, unable to arm. No payload-enable marker or CSV captures. No completed link-stability result; physical cause unconfirmed."
+}

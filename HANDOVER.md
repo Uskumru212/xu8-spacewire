@@ -1,5 +1,88 @@
 # Continuation handover
 
+## Latest named test — Setup 8 (2026-10-22)
+
+"FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF", attempt-001.
+Cable 210299BBA502 / xczu7. Prior continuous monitor stopped/released JTAG.
+Fresh programming and nominal 200 Mbit/s verification succeeded. Test exit 0:
+121.666 s, eight Run=1 readings, no falling-Run capture, local TX FIFO increase
+1251 including one EOP, RX zero, zero error/Run-reentry deltas.
+Local checks passed; remote receipt/integrity and throughput remain unverified.
+Control 0x010C: payload off, start/autostart enabled. No host monitor running.
+Evidence:
+reports/2026-10-22/test-setup-8-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/attempt-001/README.md.
+Seven runtime evidence hashes verified. Prior Setup 7 failures preserved.
+Setup 8 and the pending Setup 7 retry evidence are archived together.
+
+
+## Latest Setup 7 repeat — attempt-008 (2026-10-21)
+
+Cable 210299BBA502 / xczu7. Programming succeeded; nominal 200 Mbit/s verified
+at control 0x010C after reset. Run not observed during nominal 60-second
+startup gate (600 polls, 100 ms waits plus debug overhead); exit 1.
+No payload enabled, no two-minute falling-Run test, no final counter/CSV capture.
+Control last verified 0x010C: payload off, link start/autostart enabled.
+Evidence:
+reports/2026-10-21/test-setup-7-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/attempt-008/README.md.
+Five runtime evidence hashes verified. Earlier attempts preserved; not pushed.
+
+
+## Latest Setup 7 retries — attempts 006/007 (2026-10-21)
+
+Cable 210299BBA502 / xczu7; programming and nominal 200 Mbit/s control verification
+succeeded in both. Attempt-006 did not observe Run in the startup gate.
+Attempt-007 exited with Labtools 27-3428: ILA core clock stopped, unable to arm.
+Neither enabled the payload or completed the two-minute falling-Run test.
+No final counters or CSV captures. Attempt-007 last verified control 0x010C:
+payload off, start/autostart enabled; final hardware state not recovered.
+Clock/debug failure alone does not prove a SpaceWire link drop.
+Evidence:
+reports/2026-10-21/test-setup-7-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/README.md.
+Both attempts have five runtime evidence files with verified hashes.
+Prior attempts preserved. No new commit/push performed.
+
+
+## Latest Setup 7 repeat — attempt-005 (2026-10-21)
+
+Cable 210299BBA502 / xczu7. Programming succeeded and nominal 200 Mbit/s
+verified at control 0x010C. Run was not observed in the nominal 60-second
+startup gate (600 polls with 100 ms waits plus debug overhead); exit 1.
+No payload enabled, no two-minute falling-Run test or final counter capture.
+Prior attempts preserved. Link start/autostart remains enabled, payload off.
+Evidence:
+reports/2026-10-21/test-setup-7-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/attempt-005/README.md.
+Five runtime evidence hashes verified. No commit/push performed for this repeat.
+
+
+## Latest Setup 7 retries (2026-10-21)
+
+"FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF", cable 210299BBA502 / xczu7.
+Attempt-003 programmed and verified nominal 200 Mbit/s but failed during
+startup: refresh_hw_vio stalled 4m41s, Xicom 50-38 and hw_server failure.
+Attempt-004 reconnected/reprogrammed successfully, then did not observe Run
+in the nominal 60-second startup gate (600 polls, 100 ms plus debug overhead).
+Neither enabled payload or started the two-minute falling-Run test.
+No final counters/CSV or remote-receipt/stability result. Attempt-004 last
+control 0x010C: payload off, start/autostart on. Prior attempts preserved.
+Evidence:
+reports/2026-10-21/test-setup-7-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/README.md.
+Attempt-003 has eight runtime evidence files, attempt-004 five, hashes verified.
+A blocked hardware API can exceed the startup loop's nominal 60-second budget.
+
+
+## Latest repeat — Setup 7 attempt-002 (2026-10-19)
+
+Fresh repeat of "FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF" on cable
+210299BBA502 / xczu7. Programming and nominal 200 Mbit/s control verification
+succeeded. Run was not observed in the 600-poll startup gate (100 ms waits
+plus debug overhead); exit 1. No payload enabled and no two-minute observation
+or counter/CSV capture. Same outcome as attempt-001, which is preserved.
+Control remains 0x010C: payload off, start/autostart on.
+Evidence:
+reports/2026-10-19/test-setup-7-fm-vnir-fm-harness-fm-pdh03-som2-10ohm-10pf/attempt-002/README.md.
+Five runtime evidence hashes verified.
+
+
 ## Latest named setup attempt — Setup 7 (2026-10-19)
 
 Test Setup 7: "FM.VNIR_FM.Harness_ FM.PDH.03_SOM2_10Ω+10pF", attempt-001.
